@@ -106,32 +106,32 @@ namespace idaeg
 
 	void CShaderProgram::SetUniform2fv(const GLchar* name, const idaem::vec2& vector)
 	{
-		glUniform2fv(_getUniformLocation(name), 2, vector.element);
+		glUniform2fv(_getUniformLocation(name), 1, vector.element);
 	}
 
 	void CShaderProgram::SetUniform3fv(const GLchar* name, const idaem::vec3& vector)
 	{
-		glUniform3fv(_getUniformLocation(name), 3, vector.element);
+		glUniform3fv(_getUniformLocation(name), 1, vector.element);
 	}
 
 	void CShaderProgram::SetUniform4fv(const GLchar* name, const idaem::vec4& vector)
 	{
-		glUniform4fv(_getUniformLocation(name), 4, vector.element);
+		glUniform4fv(_getUniformLocation(name), 1, vector.element);
 	}
 
 	void CShaderProgram::SetUniformMat2fv(const GLchar* name, const idaem::mat2& matrix)
 	{
-		glUniformMatrix2fv(_getUniformLocation(name), 4, GL_FALSE, matrix._1D);
+		glUniformMatrix2fv(_getUniformLocation(name), 1, GL_FALSE, matrix._1D);
 	}
 
 	void CShaderProgram::SetUniformMat3fv(const GLchar* name, const idaem::mat3& matrix)
 	{
-		glUniformMatrix3fv(_getUniformLocation(name), 9, GL_FALSE, matrix._1D);
+		glUniformMatrix3fv(_getUniformLocation(name), 1, GL_FALSE, matrix._1D);
 	}
 
 	void CShaderProgram::SetUniformMat4fv(const GLchar* name, const idaem::mat4& matrix)
 	{
-		glUniformMatrix4fv(_getUniformLocation(name), 16, GL_FALSE, matrix._1D);
+		glUniformMatrix4fv(_getUniformLocation(name), 1, GL_FALSE, matrix._1D);
 	}
 
 	void CShaderProgram::Enable()

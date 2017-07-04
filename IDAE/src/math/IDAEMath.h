@@ -7,12 +7,7 @@
 
 /*
 TODO:
-quat functions,
-rotate mat2-mat4,
-trigonometric functions,
-mul operator and function for vec2-4 and mat2-4,
-lookAt,
-test functions
+quat functions
 */
 
 namespace idaem
@@ -51,18 +46,6 @@ namespace idaem
 	float Sin(const float& degrees);
 	float Cos(const float& degrees);
 	float Tan(const float& degrees);
-
-	float Sinh(const float& degrees);
-	float Cosh(const float& degrees);
-	float Tanh(const float& degrees);
-
-	float Asin(const float& degrees);
-	float Acos(const float& degrees);
-	float Atan(const float& degrees);
-
-	float Asinh(const float& degrees);
-	float Acosh(const float& degrees);
-	float Atanh(const float& degrees);
 	/*---------------------------------------Functions---------------------------------------*/
 	/*--------------------------------------Quaternions--------------------------------------*/
 	CQuaternion Cross(const CQuaternion& q1, const CQuaternion& q2);
@@ -109,7 +92,7 @@ namespace idaem
 	CMatrix2x2 Scale(const CMatrix2x2& m, const float& s);
 	CMatrix2x2 Scale(const CMatrix2x2& m, const float& s1, const float& s2);
 
-	CMatrix2x2 Rotate(const float& angle);
+	CMatrix2x2 Rotate(const CMatrix2x2& m, const float& angle);
 	/*---------------------------------------Functions---------------------------------------*/
 	/*----------------------------------------Matrix3----------------------------------------*/
 	float Det3(const CMatrix3x3& m);
@@ -128,6 +111,8 @@ namespace idaem
 	CMatrix3x3 Scale(const CMatrix3x3& m, const CVector3& v);
 	CMatrix3x3 Scale(const CMatrix3x3& m, const float& s);
 	CMatrix3x3 Scale(const CMatrix3x3& m, const float& s1, const float& s2, const float& s3);
+
+	CMatrix3x3 Rotate(const CMatrix3x3& m, const float& angle, const CVector3& v);
 	/*---------------------------------------Functions---------------------------------------*/
 	/*----------------------------------------Matrix4----------------------------------------*/
 	float Det4(const CMatrix4x4& m);
@@ -149,9 +134,12 @@ namespace idaem
 	CMatrix4x4 Scale(const CMatrix4x4& m, const float& s);
 	CMatrix4x4 Scale(const CMatrix4x4& m, const float& s1, const float& s2, const float& s3);
 
+	CMatrix4x4 Rotate(const CMatrix4x4& m, const float& angle, const CVector3& v);
+
 	CMatrix4x4 Ortho(float left, float right, float bottom, float top);
 	CMatrix4x4 Ortho(float left, float right, float bottom, float top, float near, float far);
 	CMatrix4x4 Perspective(float fov, float aspect, float near, float far);
+	CMatrix4x4 LookAt(const CVector3& eye, const CVector3& center, const CVector3& up);
 	/*---------------------------------------Functions---------------------------------------*/
 	/*------------------------------------------End------------------------------------------*/
 
@@ -273,6 +261,7 @@ namespace idaem
 		friend CVector2 operator*(const CVector2& v, const float& s);
 		friend CVector2 operator*(const float& s, const CVector2& v);
 		friend CVector2 operator*(const CVector2& v1, const CVector2& v2);
+		friend CVector2 operator*(const CVector2& v, const CMatrix2x2& m);
 		friend CVector2 operator/(const CVector2& v, const float& s);
 		friend CVector2 operator/(const float& s, const CVector2& v);
 		friend CVector2 operator/(const CVector2& v1, const CVector2& v2);
@@ -348,6 +337,7 @@ namespace idaem
 		friend CVector3 operator*(const CVector3& v, const float& s);
 		friend CVector3 operator*(const float& s, const CVector3& v);
 		friend CVector3 operator*(const CVector3& v1, const CVector3& v2);
+		friend CVector3 operator*(const CVector3& v, const CMatrix3x3& m);
 		friend CVector3 operator/(const CVector3& v, const float& s);
 		friend CVector3 operator/(const float& s, const CVector3& v);
 		friend CVector3 operator/(const CVector3& v1, const CVector3& v2);
@@ -425,6 +415,7 @@ namespace idaem
 		friend CVector4 operator*(const CVector4& v, const float& s);
 		friend CVector4 operator*(const float& s, const CVector4& v);
 		friend CVector4 operator*(const CVector4& v1, const CVector4& v2);
+		friend CVector4 operator*(const CVector4& v, const CMatrix4x4& m);
 		friend CVector4 operator/(const CVector4& v, const float& s);
 		friend CVector4 operator/(const float& s, const CVector4& v);
 		friend CVector4 operator/(const CVector4& v1, const CVector4& v2);
@@ -500,6 +491,7 @@ namespace idaem
 		friend CMatrix2x2 operator*(const CMatrix2x2& m, const float& s);
 		friend CMatrix2x2 operator*(const float& s, const CMatrix2x2& m);
 		friend CMatrix2x2 operator*(const CMatrix2x2& m1, const CMatrix2x2& m2);
+		friend CVector2   operator*(const CMatrix2x2& m, const CVector2& v);
 		friend CMatrix2x2 operator/(const CMatrix2x2& m, const float& s);
 		friend CMatrix2x2 operator/(const float& s, const CMatrix2x2& m);
 		friend CMatrix2x2 operator/(const CMatrix2x2& m1, const CMatrix2x2& m2);
@@ -576,6 +568,7 @@ namespace idaem
 		friend CMatrix3x3 operator*(const CMatrix3x3& m, const float& s);
 		friend CMatrix3x3 operator*(const float& s, const CMatrix3x3& m);
 		friend CMatrix3x3 operator*(const CMatrix3x3& m1, const CMatrix3x3& m2);
+		friend CVector3   operator*(const CMatrix3x3& m, const CVector3& v);
 		friend CMatrix3x3 operator/(const CMatrix3x3& m, const float& s);
 		friend CMatrix3x3 operator/(const float& s, const CMatrix3x3& m);
 		friend CMatrix3x3 operator/(const CMatrix3x3& m1, const CMatrix3x3& m2);
@@ -653,6 +646,7 @@ namespace idaem
 		friend CMatrix4x4 operator*(const CMatrix4x4& m, const float& s);
 		friend CMatrix4x4 operator*(const float& s, const CMatrix4x4& m);
 		friend CMatrix4x4 operator*(const CMatrix4x4& m1, const CMatrix4x4& m2);
+		friend CVector4   operator*(const CMatrix4x4& m, const CVector4& v);
 		friend CMatrix4x4 operator/(const CMatrix4x4& m, const float& s);
 		friend CMatrix4x4 operator/(const float& s, const CMatrix4x4& m);
 		friend CMatrix4x4 operator/(const CMatrix4x4& m1, const CMatrix4x4& m2);

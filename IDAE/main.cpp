@@ -136,12 +136,17 @@ int main()
 
 	CShaderProgram* program = new CShaderProgram("res/test.vert", "res/test.frag");
 
-	mat2 rot(1.0f);
+	mat2 rot2(1, 2, 3, 4);
 
-	rot = Rotate(30.0f);
+	vec2 v2(5, 6);
 
-	vec2 vec(1.0f, 1.0f);
-	//vec = rot * vec;
+	v2 = v2 * rot2;
+
+	mat2 rot(1, 2, 3, 4);
+
+	vec2 v(5, 6);
+
+	v = rot * v;
 
 	float vertices1[] = {
 		 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
@@ -178,6 +183,14 @@ int main()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 
+	mat4 ortho = idaem::Ortho(-2.0f, 2.0f, -2.0f, 2.0f);
+	mat4 persp = idaem::Perspective(45.0f, 4 / 3, -1.0f, 1.0f);
+	vec2 light = vec2(0.0f, 0.0f);
+
+	program->Enable();
+	program->SetUniformMat4fv("pr_matrix", Rotate(ortho, 45.0f, vec3(0.0f, 0.0f, 1.0f)));
+	program->SetUniform2f("light_pos", light);
+
 	//glGenVertexArrays(1, &VAO2);
 	//glGenBuffers(1, &VBO2);
 
@@ -201,8 +214,8 @@ int main()
 		GLfloat timeValue = (float)glfwGetTime();
 		GLfloat moved = (idaem::Sin(idaem::ToDegrees(timeValue)) / 2);
 
-		program->Enable();
 		program->SetUniform1f("xOffset", moved);
+
 		//program->SetUniform4f("ourColor", vec4(0.0f, greenValue, 0.0f, 1.0f));
 		
 		//program->Enable();

@@ -14,24 +14,6 @@ namespace idaem
 
 	float Tan(const float& degrees) { return tan(ToRadians(degrees)); }
 
-	float Sinh(const float& s) { return sinh(s); }
-
-	float Cosh(const float& s) { return cosh(s); }
-
-	float Tanh(const float& s) { return tanh(s); }
-
-	float Asin(const float& degrees) { return asin(ToRadians(degrees)); }
-
-	float Acos(const float& degrees) { return acos(ToRadians(degrees)); }
-
-	float Atan(const float& degrees) { return atan(ToRadians(degrees)); }
-
-	float Asinh(const float & degrees) { return asinh(ToRadians(degrees)); }
-
-	float Acosh(const float & degrees) { return acosh(ToRadians(degrees)); }
-
-	float Atanh(const float & degrees) { return atanh(ToRadians(degrees)); }
-
 	CQuaternion Cross(const CQuaternion& q1, const CQuaternion& q2)
 	{
 		return CQuaternion(q1.element[0] * q2.element[0] - q1.element[1] * q2.element[1] - q1.element[2] * q2.element[2] - q1.element[3] * q2.element[3],
@@ -228,10 +210,18 @@ namespace idaem
 						  m.column[1] * s2);
 	}
 
-	CMatrix2x2 Rotate(const float& angle)
+	CMatrix2x2 Rotate(const CMatrix2x2& m, const float& angle)
 	{
-		return CMatrix2x2(Cos(angle), -Sin(angle),
-						  Sin(angle),  Cos(angle));
+		const float a = angle;
+		const float c = Cos(a);
+		const float s = Sin(a);
+
+		CMatrix2x2 result(1.0f);
+
+		result.column[0] = m.column[0] *  c + m.column[1] * s;
+		result.column[1] = m.column[0] * -s + m.column[1] * c;
+
+		return result;
 	}
 
 	float Det3(const CMatrix3x3& m)
@@ -340,6 +330,38 @@ namespace idaem
 		return CMatrix3x3(m.column[0] * s1,
 						  m.column[1] * s2,
 						  m.column[2] * s3);
+	}
+
+	CMatrix3x3 Rotate(const CMatrix3x3& m, const float& angle, const CVector3& v)
+	{
+		const float a = angle;
+		const float c = Cos(a);
+		const float s = Sin(a);
+
+		CVector3 axis(Normalize(v));
+		CVector3 temp((1.0f - c) * axis);
+
+		CMatrix3x3 rotate(1.0f);
+
+		rotate._1D[0] = c + temp[0] * axis[0];
+		rotate._1D[1] = 0 + temp[0] * axis[1] + s * axis[2];
+		rotate._1D[2] = 0 + temp[0] * axis[2] - s * axis[1];
+
+		rotate._1D[3] = 0 + temp[1] * axis[0] - s * axis[2];
+		rotate._1D[4] = c + temp[1] * axis[1];
+		rotate._1D[5] = 0 + temp[1] * axis[2] + s * axis[0];
+
+		rotate._1D[6] = 0 + temp[2] * axis[0] + s * axis[1];
+		rotate._1D[7] = 0 + temp[2] * axis[1] - s * axis[0];
+		rotate._1D[8] = c + temp[2] * axis[2];
+
+		CMatrix3x3 result(1.0f);
+
+		result.column[0] = m.column[0] * rotate._1D[0] + m.column[1] * rotate._1D[1] + m.column[2] * rotate._1D[2];
+		result.column[1] = m.column[0] * rotate._1D[3] + m.column[1] * rotate._1D[4] + m.column[2] * rotate._1D[5];
+		result.column[2] = m.column[0] * rotate._1D[6] + m.column[1] * rotate._1D[7] + m.column[2] * rotate._1D[8];
+
+		return result;
 	}
 
 	float Det4(const CMatrix4x4& m)
@@ -479,6 +501,39 @@ namespace idaem
 						  m.column[3]);
 	}
 
+	CMatrix4x4 Rotate(const CMatrix4x4& m, const float& angle, const CVector3& v)
+	{
+		const float a = angle;
+		const float c = Cos(a);
+		const float s = Sin(a);
+
+		CVector3 axis(Normalize(v));
+		CVector3 temp((1.0f - c) * axis);
+
+		CMatrix4x4 rotate(1.0f);
+
+		rotate._1D[0]  = c + temp[0] * axis[0];
+		rotate._1D[1]  = 0 + temp[0] * axis[1] + s * axis[2];
+		rotate._1D[2]  = 0 + temp[0] * axis[2] - s * axis[1];
+
+		rotate._1D[4]  = 0 + temp[1] * axis[0] - s * axis[2];
+		rotate._1D[5]  = c + temp[1] * axis[1];
+		rotate._1D[6]  = 0 + temp[1] * axis[2] + s * axis[0];
+
+		rotate._1D[8]  = 0 + temp[2] * axis[0] + s * axis[1];
+		rotate._1D[9]  = 0 + temp[2] * axis[1] - s * axis[0];
+		rotate._1D[10] = c + temp[2] * axis[2];
+
+		CMatrix4x4 result(1.0f);
+
+		result.column[0] = m.column[0] * rotate._1D[0] + m.column[1] * rotate._1D[1] + m.column[2] * rotate._1D[2];
+		result.column[1] = m.column[0] * rotate._1D[4] + m.column[1] * rotate._1D[5] + m.column[2] * rotate._1D[6];
+		result.column[2] = m.column[0] * rotate._1D[8] + m.column[1] * rotate._1D[9] + m.column[2] * rotate._1D[10];
+		result.column[3] = m.column[3];												  
+
+		return result;
+	}
+
 	CMatrix4x4 Ortho(float left, float right, float bottom, float top)
 	{
 		CMatrix4x4 result(1.0f);
@@ -505,6 +560,7 @@ namespace idaem
 
 		return result;
 	}
+
 	CMatrix4x4 Perspective(float fov, float aspect, float near, float far)
 	{
 		CMatrix4x4 result(1.0f);
@@ -516,6 +572,33 @@ namespace idaem
 		result._1D[10] = (near + far) / (far - near);
 		result._1D[11] = 1.0f;
 		result._1D[14] = (2.0f * near * far) / (near - far);
+
+		return result;
+	}
+
+	CMatrix4x4 LookAt(const CVector3& eye, const CVector3& center, const CVector3& up)
+	{
+		const CVector3 direction(Normalize(center - eye));
+		const CVector3 camRight(Normalize(Cross(direction, up)));
+		const CVector3 camUp(Cross(camRight, direction));
+
+		CMatrix4x4 result;
+
+		result._1D[0]  = camRight.x;
+		result._1D[4]  = camRight.y;
+		result._1D[8]  = camRight.z;
+
+		result._1D[1]  = camUp.x;
+		result._1D[5]  = camUp.y;
+		result._1D[9]  = camUp.z;
+
+		result._1D[2]  = -direction.x;
+		result._1D[6]  = -direction.y;
+		result._1D[10] = -direction.z;
+
+		result._1D[12] = -Dot(camRight, eye);
+		result._1D[13] = -Dot(camUp, eye);
+		result._1D[14] =  Dot(direction, eye);
 
 		return result;
 	}
@@ -1014,6 +1097,12 @@ namespace idaem
 						v1.element[1] * v2.element[1]);
 	}
 
+	CVector2 operator*(const CVector2& v, const CMatrix2x2& m)
+	{
+		return CVector2(v.element[0] * m._1D[0] + v.element[1] * m._1D[1],
+						v.element[0] * m._1D[2] + v.element[1] * m._1D[3]);
+	}
+
 	CVector2 operator/(const CVector2& v, const float& s)
 	{
 		assert(s != 0.0f);
@@ -1358,6 +1447,13 @@ namespace idaem
 		return CVector3(v1.element[0] * v2.element[0],
 						v1.element[1] * v2.element[1],
 						v1.element[2] * v2.element[2]);
+	}
+
+	CVector3 operator*(const CVector3& v, const CMatrix3x3& m)
+	{
+		return CVector3(v.element[0] * m._1D[0] + v.element[1] * m._1D[3] + v.element[2] * m._1D[6],
+						v.element[0] * m._1D[1] + v.element[1] * m._1D[4] + v.element[2] * m._1D[7],
+						v.element[0] * m._1D[2] + v.element[1] * m._1D[5] + v.element[2] * m._1D[8]);
 	}
 
 	CVector3 operator/(const CVector3& v, const float& s)
@@ -1748,6 +1844,14 @@ namespace idaem
 						v1.element[3] * v2.element[3]);
 	}
 
+	CVector4 operator*(const CVector4& v, const CMatrix4x4& m)
+	{
+		return CVector4(v.element[0] * m._1D[0] + v.element[1] * m._1D[4] + v.element[2] * m._1D[8]  + v.element[3] * m._1D[12],
+						v.element[0] * m._1D[1] + v.element[1] * m._1D[5] + v.element[2] * m._1D[9]  + v.element[3] * m._1D[13],
+						v.element[0] * m._1D[2] + v.element[1] * m._1D[6] + v.element[2] * m._1D[10] + v.element[3] * m._1D[14],
+						v.element[0] * m._1D[3] + v.element[1] * m._1D[7] + v.element[2] * m._1D[11] + v.element[3] * m._1D[15]);
+	}
+
 	CVector4 operator/(const CVector4& v, const float& s)
 	{
 		assert(s != 0.0f);
@@ -2092,6 +2196,12 @@ namespace idaem
 						  m1._1D[1] * m2._1D[0] + m1._1D[3] * m2._1D[1],
 						  m1._1D[0] * m2._1D[2] + m1._1D[2] * m2._1D[3],
 						  m1._1D[1] * m2._1D[2] + m1._1D[3] * m2._1D[3]);
+	}
+
+	CVector2 operator*(const CMatrix2x2& m, const CVector2& v)
+	{
+		return CVector2(m._1D[0] * v.element[0] + m._1D[2] * v.element[1],
+						m._1D[1] * v.element[0] + m._1D[3] * v.element[1]);
 	}
 
 	CMatrix2x2 operator/(const CMatrix2x2& m, const float& s)
@@ -2482,6 +2592,13 @@ namespace idaem
 						  m1._1D[0] * m2._1D[6] + m1._1D[3] * m2._1D[7] + m1._1D[6] * m2._1D[8],
 						  m1._1D[1] * m2._1D[6] + m1._1D[4] * m2._1D[7] + m1._1D[7] * m2._1D[8],
 						  m1._1D[2] * m2._1D[6] + m1._1D[5] * m2._1D[7] + m1._1D[8] * m2._1D[8]);
+	}
+
+	CVector3 operator*(const CMatrix3x3& m, const CVector3& v)
+	{
+		return CVector3(m._1D[0] * v.element[0] + m._1D[3] * v.element[1] + m._1D[6] * v.element[2],
+						m._1D[1] * v.element[0] + m._1D[4] * v.element[1] + m._1D[7] * v.element[2],
+						m._1D[2] * v.element[0] + m._1D[5] * v.element[1] + m._1D[8] * v.element[2]);
 	}
 
 	CMatrix3x3 operator/(const CMatrix3x3& m, const float& s)
@@ -2940,6 +3057,14 @@ namespace idaem
 						  m1._1D[1] * m2._1D[12] + m1._1D[5] * m2._1D[13] + m1._1D[9]  * m2._1D[14] + m1._1D[13] * m2._1D[15],
 						  m1._1D[2] * m2._1D[12] + m1._1D[6] * m2._1D[13] + m1._1D[10] * m2._1D[14] + m1._1D[14] * m2._1D[15],
 						  m1._1D[3] * m2._1D[12] + m1._1D[7] * m2._1D[13] + m1._1D[11] * m2._1D[14] + m1._1D[15] * m2._1D[15]);
+	}
+
+	CVector4 operator*(const CMatrix4x4& m, const CVector4& v)
+	{
+		return CVector4(m._1D[0] * v.element[0] + m._1D[4] * v.element[1] + m._1D[8]  * v.element[2] + m._1D[12] * v.element[3],
+						m._1D[1] * v.element[0] + m._1D[5] * v.element[1] + m._1D[9]  * v.element[2] + m._1D[13] * v.element[3],
+						m._1D[2] * v.element[0] + m._1D[6] * v.element[1] + m._1D[10] * v.element[2] + m._1D[14] * v.element[3],
+						m._1D[3] * v.element[0] + m._1D[7] * v.element[1] + m._1D[11] * v.element[2] + m._1D[15] * v.element[3]);
 	}
 
 	CMatrix4x4 operator/(const CMatrix4x4& m, const float& s)
