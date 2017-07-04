@@ -228,6 +228,12 @@ namespace idaem
 						  m.column[1] * s2);
 	}
 
+	CMatrix2x2 Rotate(const float& angle)
+	{
+		return CMatrix2x2(Cos(angle), -Sin(angle),
+						  Sin(angle),  Cos(angle));
+	}
+
 	float Det3(const CMatrix3x3& m)
 	{
 		return (m._1D[0] * m._1D[4] * m._1D[8]) + (m._1D[3] * m._1D[7] * m._1D[2]) + (m._1D[6] * m._1D[1] * m._1D[5]) -
@@ -271,24 +277,48 @@ namespace idaem
 						  m._1D[2], m._1D[5], m._1D[8]);
 	}
 
-	CMatrix3x3 Scale(const CMatrix3x3& m, const CVector2& v)
+	CMatrix3x3 Translate(const CMatrix3x3& m, const float& s)
 	{
-		CMatrix2x2 result(m);
+		CMatrix3x3 result(m);
 
-		result.column[0] *= v.element[0];
-		result.column[1] *= v.element[1];
+		result.column[2] = m.column[0] * s +
+						   m.column[1] * s +
+						   m.column[2];
 
-		return CMatrix3x3(result);
+		return result;
 	}
 
-	CMatrix3x3 Scale(const CMatrix3x3& m, const float& s1, const float& s2)
+	CMatrix3x3 Translate(const CMatrix3x3& m, const CVector2& v)
 	{
-		CMatrix2x2 result(m);
+		CMatrix3x3 result(m);
 
-		result.column[0] *= s1;
-		result.column[1] *= s2;
+		result.column[2] = m.column[0] * v.element[0] +
+						   m.column[1] * v.element[1] +
+						   m.column[2];
 
-		return CMatrix3x3(result);
+		return result;
+	}
+
+	CMatrix3x3 Translate(const CMatrix3x3& m, const CVector3& v)
+	{
+		CMatrix3x3 result(m);
+
+		result.column[2] = m.column[0] * v.element[0] +
+						   m.column[1] * v.element[1] +
+						   m.column[2];
+
+		return result;
+	}
+
+	CMatrix3x3 Translate(const CMatrix3x3& m, const float& s1, const float& s2)
+	{
+		CMatrix3x3 result(m);
+
+		result.column[2] = m.column[0] * s1 +
+						   m.column[1] * s2 +
+						   m.column[2];
+
+		return result;
 	}
 
 	CMatrix3x3 Scale(const CMatrix3x3& m, const CVector3& v)
@@ -374,9 +404,9 @@ namespace idaem
 		CMatrix4x4 result(m);
 
 		result.column[3] = m.column[0] * v.element[0] +
-							m.column[1] * v.element[1] +
-							m.column[2] * v.element[2] +
-							m.column[3];
+						   m.column[1] * v.element[1] +
+						   m.column[2] * v.element[2] +
+						   m.column[3];
 
 		return result;
 	}
@@ -386,9 +416,9 @@ namespace idaem
 		CMatrix4x4 result(m);
 
 		result.column[3] = m.column[0] * v.element[0] +
-							m.column[1] * v.element[1] +
-							m.column[2] * v.element[2] +
-							m.column[3];
+						   m.column[1] * v.element[1] +
+						   m.column[2] * v.element[2] +
+						   m.column[3];
 
 		return result;
 	}
@@ -398,21 +428,21 @@ namespace idaem
 		CMatrix4x4 result(m);
 
 		result.column[3] = m.column[0] * s +
-							m.column[1] * s +
-							m.column[2] * s +
-							m.column[3];
+						   m.column[1] * s +
+					       m.column[2] * s +
+						   m.column[3];
 
 		return result;
 	}
 
-	CMatrix4x4 Translate(const CMatrix4x4 & m, const float& s1, const float& s2, const float& s3)
+	CMatrix4x4 Translate(const CMatrix4x4& m, const float& s1, const float& s2, const float& s3)
 	{
 		CMatrix4x4 result(m);
 
 		result.column[3] = m.column[0] * s1 +
-							m.column[1] * s2 +
-							m.column[2] * s3 +
-							m.column[3];
+						   m.column[1] * s2 +
+						   m.column[2] * s3 +
+						   m.column[3];
 
 		return result;
 	}
@@ -447,6 +477,47 @@ namespace idaem
 						  m.column[1] * s2,
 						  m.column[2] * s3,
 						  m.column[3]);
+	}
+
+	CMatrix4x4 Ortho(float left, float right, float bottom, float top)
+	{
+		CMatrix4x4 result(1.0f);
+
+		result._1D[0]  =   2.0f / (right - left);
+		result._1D[5]  =   2.0f / (top - bottom);
+		result._1D[10] = - 1.0f;
+		result._1D[12] = - (right + left) / (right - left);
+		result._1D[13] = - (top + bottom) / (top - bottom);
+
+		return result;
+	}
+
+	CMatrix4x4 Ortho(float left, float right, float bottom, float top, float near, float far)
+	{
+		CMatrix4x4 result(1.0f);
+
+		result._1D[0]  =   2.0f / (right - left);
+		result._1D[5]  =   2.0f / (top - bottom);
+		result._1D[10] = - 2.0f / (far - near);
+		result._1D[12] = - (right + left) / (right - left);
+		result._1D[13] = - (top + bottom) / (top - bottom);
+		result._1D[14] = - (far + near) / (far - near);
+
+		return result;
+	}
+	CMatrix4x4 Perspective(float fov, float aspect, float near, float far)
+	{
+		CMatrix4x4 result(1.0f);
+		
+		const float tanHalfFov = tan(ToRadians(0.5f * fov));
+
+		result._1D[0] = 1.0f / (aspect * tanHalfFov);
+		result._1D[5] = 1.0f / (tanHalfFov);
+		result._1D[10] = (near + far) / (far - near);
+		result._1D[11] = 1.0f;
+		result._1D[14] = (2.0f * near * far) / (near - far);
+
+		return result;
 	}
 	/*---------------------------------------Functions---------------------------------------*/
 	/*------------------------------------------End------------------------------------------*/
@@ -606,8 +677,8 @@ namespace idaem
 	CVector3 operator*(const CQuaternion& q, const CVector3& v)
 	{
 		const CVector3 QuatVector(q.x, q.y, q.z);
-		const CVector3 const cqvv(Cross(QuatVector, v));
-		const CVector3 const ccqvvqv(Cross(QuatVector, cqvv));
+		const CVector3 cqvv(Cross(QuatVector, v));
+		const CVector3 ccqvvqv(Cross(QuatVector, cqvv));
 
 		return v + ((cqvv * q.w) + ccqvvqv) * 2.0f;
 	}

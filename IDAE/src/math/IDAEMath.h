@@ -5,6 +5,16 @@
 #include <cmath>
 #include <iostream>
 
+/*
+TODO:
+quat functions,
+rotate mat2-mat4,
+trigonometric functions,
+mul operator and function for vec2-4 and mat2-4,
+lookAt,
+test functions
+*/
+
 namespace idaem
 {
 	class CQuaternion;
@@ -95,9 +105,11 @@ namespace idaem
 	CMatrix2x2 Inverse(const CMatrix2x2& m);
 	CMatrix2x2 Transpose(const CMatrix2x2& m);
 
-	CMatrix2x2 Scale(const CMatrix2x2& m, const CVector2& v);//
-	CMatrix2x2 Scale(const CMatrix2x2& m, const float& s);//
-	CMatrix2x2 Scale(const CMatrix2x2& m, const float& s1, const float& s2);//
+	CMatrix2x2 Scale(const CMatrix2x2& m, const CVector2& v);
+	CMatrix2x2 Scale(const CMatrix2x2& m, const float& s);
+	CMatrix2x2 Scale(const CMatrix2x2& m, const float& s1, const float& s2);
+
+	CMatrix2x2 Rotate(const float& angle);
 	/*---------------------------------------Functions---------------------------------------*/
 	/*----------------------------------------Matrix3----------------------------------------*/
 	float Det3(const CMatrix3x3& m);
@@ -108,8 +120,11 @@ namespace idaem
 	CMatrix3x3 Inverse(const CMatrix3x3& m);
 	CMatrix3x3 Transpose(const CMatrix3x3& m);
 
-	CMatrix3x3 Scale(const CMatrix3x3& m, const CVector2& v);//
-	CMatrix3x3 Scale(const CMatrix3x3& m, const float& s1, const float& s2);//
+	CMatrix3x3 Translate(const CMatrix3x3& m, const float& s);
+	CMatrix3x3 Translate(const CMatrix3x3& m, const CVector2& v);
+	CMatrix3x3 Translate(const CMatrix3x3& m, const CVector3& v);
+	CMatrix3x3 Translate(const CMatrix3x3& m, const float& s1, const float& s2);
+
 	CMatrix3x3 Scale(const CMatrix3x3& m, const CVector3& v);
 	CMatrix3x3 Scale(const CMatrix3x3& m, const float& s);
 	CMatrix3x3 Scale(const CMatrix3x3& m, const float& s1, const float& s2, const float& s3);
@@ -133,6 +148,10 @@ namespace idaem
 	CMatrix4x4 Scale(const CMatrix4x4& m, const CVector4& v);
 	CMatrix4x4 Scale(const CMatrix4x4& m, const float& s);
 	CMatrix4x4 Scale(const CMatrix4x4& m, const float& s1, const float& s2, const float& s3);
+
+	CMatrix4x4 Ortho(float left, float right, float bottom, float top);
+	CMatrix4x4 Ortho(float left, float right, float bottom, float top, float near, float far);
+	CMatrix4x4 Perspective(float fov, float aspect, float near, float far);
 	/*---------------------------------------Functions---------------------------------------*/
 	/*------------------------------------------End------------------------------------------*/
 
