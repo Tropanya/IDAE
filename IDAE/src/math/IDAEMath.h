@@ -2,12 +2,13 @@
 #define IDAEMATH_H
 
 #include <cassert>
+#include <limits>
 #include <cmath>
 #include <iostream>
 
 /*
 TODO:
-quat functions
+quat functions(eulerAngles, roll, pitch, yaw, mat3_cast, mat4_cast, quat_cast3, quat_cast4, angle, axis, angleAxis)
 */
 
 namespace idaem
@@ -40,12 +41,203 @@ namespace idaem
 
 	/*---------------------------------------Functions---------------------------------------*/
 	/*-----------------------------------------Start-----------------------------------------*/
-	float ToRadians(const float& degrees);
-	float ToDegrees(const float& radians);
+	float    Abs(const float& s);
+	CVector2 Abs(const CVector2& v);
+	CVector3 Abs(const CVector3& v);
+	CVector4 Abs(const CVector4& v);
 
-	float Sin(const float& degrees);
-	float Cos(const float& degrees);
-	float Tan(const float& degrees);
+	float    Floor(const float& s);
+	CVector2 Floor(const CVector2& v);
+	CVector3 Floor(const CVector3& v);
+	CVector4 Floor(const CVector4& v);
+
+	float    Trunc(const float& s);
+	CVector2 Trunc(const CVector2& v);
+	CVector3 Trunc(const CVector3& v);
+	CVector4 Trunc(const CVector4& v);
+
+	float    Round(const float& s);
+	CVector2 Round(const CVector2& v);
+	CVector3 Round(const CVector3& v);
+	CVector4 Round(const CVector4& v);
+
+	float    Ceil(const float& s);
+	CVector2 Ceil(const CVector2& v);
+	CVector3 Ceil(const CVector3& v);
+	CVector4 Ceil(const CVector4& v);
+
+	float    Fract(const float& s);
+	CVector2 Fract(const CVector2& v);
+	CVector3 Fract(const CVector3& v);
+	CVector4 Fract(const CVector4& v);
+
+	float    Mod(const float& s1, const float& s2);
+	CVector2 Mod(const CVector2& v, const float& s);
+	CVector3 Mod(const CVector3& v, const float& s);
+	CVector4 Mod(const CVector4& v, const float& s);
+	CVector2 Mod(const CVector2& v1, const CVector2& v2);
+	CVector3 Mod(const CVector3& v1, const CVector3& v2);
+	CVector4 Mod(const CVector4& v1, const CVector4& v2);
+
+	float    Min(const float& s1, const float& s2);
+	CVector2 Min(const CVector2& v, const float& s);
+	CVector3 Min(const CVector3& v, const float& s);
+	CVector4 Min(const CVector4& v, const float& s);
+	CVector2 Min(const CVector2& v1, const CVector2& v2);
+	CVector3 Min(const CVector3& v1, const CVector3& v2);
+	CVector4 Min(const CVector4& v1, const CVector4& v2);
+
+	float    Max(const float& s1, const float& s2);
+	CVector2 Max(const CVector2& v, const float& s);
+	CVector3 Max(const CVector3& v, const float& s);
+	CVector4 Max(const CVector4& v, const float& s);
+	CVector2 Max(const CVector2& v1, const CVector2& v2);
+	CVector3 Max(const CVector3& v1, const CVector3& v2);
+	CVector4 Max(const CVector4& v1, const CVector4& v2);
+
+	float    Clamp(const float& s, const float& minS, const float& maxS);
+	CVector2 Clamp(const CVector2& v, const float& minS, const float& maxS);
+	CVector3 Clamp(const CVector3& v, const float& minS, const float& maxS);
+	CVector4 Clamp(const CVector4& v, const float& minS, const float& maxS);
+	CVector2 Clamp(const CVector2& v, const CVector2& minV, const CVector2& maxV);
+	CVector3 Clamp(const CVector3& v, const CVector3& minV, const CVector3& maxV);
+	CVector4 Clamp(const CVector4& v, const CVector4& minV, const CVector4& maxV);
+
+	float    Mix(const float& s1, const float& s2, const float& s3);
+	CVector2 Mix(const CVector2& v1, const CVector2& v2, const float& s);
+	CVector3 Mix(const CVector3& v1, const CVector3& v2, const float& s);
+	CVector4 Mix(const CVector4& v1, const CVector4& v2, const float& s);
+	CVector2 Mix(const CVector2& v1, const CVector2& v2, const CVector2& v3);
+	CVector3 Mix(const CVector3& v1, const CVector3& v2, const CVector3& v3);
+	CVector4 Mix(const CVector4& v1, const CVector4& v2, const CVector4& v3);
+
+	float    Step(const float& edge, const float& s);
+	CVector2 Step(const float& edge, const CVector2& s);
+	CVector3 Step(const float& edge, const CVector3& s);
+	CVector4 Step(const float& edge, const CVector4& s);
+	CVector2 Step(const CVector2& edge, const CVector2& s);
+	CVector3 Step(const CVector3& edge, const CVector3& s);
+	CVector4 Step(const CVector4& edge, const CVector4& s);
+
+	float    SmoothStep(const float& edge1, const float& edge2, const float& s);
+	CVector2 SmoothStep(const float& edge1, const float& edge2, const CVector2& v);
+	CVector3 SmoothStep(const float& edge1, const float& edge2, const CVector3& v);
+	CVector4 SmoothStep(const float& edge1, const float& edge2, const CVector4& v);
+	CVector2 SmoothStep(const CVector2& edge1, const CVector2& edge2, const CVector2& v);
+	CVector3 SmoothStep(const CVector3& edge1, const CVector3& edge2, const CVector3& v);
+	CVector4 SmoothStep(const CVector4& edge1, const CVector4& edge2, const CVector4& v);
+
+	float Fma(const float& s1, const float& s2, const float& s3);
+	/*---------------------------------------Functions---------------------------------------*/
+	/*--------------------------------------Exponential--------------------------------------*/
+	float    Pow(const float& s1, const float& s2);
+	CVector2 Pow(const CVector2& v, const float& s);
+	CVector3 Pow(const CVector3& v, const float& s);
+	CVector4 Pow(const CVector4& v, const float& s);
+	CVector2 Pow(const CVector2& v1, const CVector2& v2);
+	CVector3 Pow(const CVector3& v1, const CVector3& v2);
+	CVector4 Pow(const CVector4& v1, const CVector4& v2);
+
+	float    Exp(const float& s);
+	CVector2 Exp(const CVector2& v);
+	CVector3 Exp(const CVector3& v);
+	CVector4 Exp(const CVector4& v);
+
+	float    Exp2(const float& s);
+	CVector2 Exp2(const CVector2& v);
+	CVector3 Exp2(const CVector3& v);
+	CVector4 Exp2(const CVector4& v);
+
+	float    Log(const float& s);
+	CVector2 Log(const CVector2& v);
+	CVector3 Log(const CVector3& v);
+	CVector4 Log(const CVector4& v);
+
+	float    Log2(const float& s);
+	CVector2 Log2(const CVector2& v);
+	CVector3 Log2(const CVector3& v);
+	CVector4 Log2(const CVector4& v);
+
+	float    Sqrt(const float& s);
+	CVector2 Sqrt(const CVector2& v);
+	CVector3 Sqrt(const CVector3& v);
+	CVector4 Sqrt(const CVector4& v);
+
+	float    InvSqrt(const float& s);
+	CVector2 InvSqrt(const CVector2& v);
+	CVector3 InvSqrt(const CVector3& v);
+	CVector4 InvSqrt(const CVector4& v);
+	/*---------------------------------------Functions---------------------------------------*/
+	/*-------------------------------------Trigonometric-------------------------------------*/
+	float ToRadians(const float& degrees);
+	CVector2 ToRadians(const CVector2& degrees);
+	CVector3 ToRadians(const CVector3& degrees);
+	CVector4 ToRadians(const CVector4& degrees);
+
+	float ToDegrees(const float& radians);
+	CVector2 ToDegrees(const CVector2& radians);
+	CVector3 ToDegrees(const CVector3& radians);
+	CVector4 ToDegrees(const CVector4& radians);
+
+	float    Sin(const float& radians);
+	CVector2 Sin(const CVector2& radians);
+	CVector3 Sin(const CVector3& radians);
+	CVector4 Sin(const CVector4& radians);
+
+	float    Cos(const float& radians);
+	CVector2 Cos(const CVector2& radians);
+	CVector3 Cos(const CVector3& radians);
+	CVector4 Cos(const CVector4& radians);
+
+	float    Tan(const float& radians);
+	CVector2 Tan(const CVector2& radians);
+	CVector3 Tan(const CVector3& radians);
+	CVector4 Tan(const CVector4& radians);
+
+	float    Asin(const float& radians);
+	CVector2 Asin(const CVector2& radians);
+	CVector3 Asin(const CVector3& radians);
+	CVector4 Asin(const CVector4& radians);
+
+	float    Acos(const float& radians);
+	CVector2 Acos(const CVector2& radians);
+	CVector3 Acos(const CVector3& radians);
+	CVector4 Acos(const CVector4& radians);
+
+	float    Atan(const float& radians);
+	CVector2 Atan(const CVector2& radians);
+	CVector3 Atan(const CVector3& radians);
+	CVector4 Atan(const CVector4& radians);
+
+	float    Sinh(const float& radians);
+	CVector2 Sinh(const CVector2& radians);
+	CVector3 Sinh(const CVector3& radians);
+	CVector4 Sinh(const CVector4& radians);
+
+	float    Cosh(const float& radians);
+	CVector2 Cosh(const CVector2& radians);
+	CVector3 Cosh(const CVector3& radians);
+	CVector4 Cosh(const CVector4& radians);
+
+	float    Tanh(const float& radians);
+	CVector2 Tanh(const CVector2& radians);
+	CVector3 Tanh(const CVector3& radians);
+	CVector4 Tanh(const CVector4& radians);
+
+	float    Asinh(const float& radians);
+	CVector2 Asinh(const CVector2& radians);
+	CVector3 Asinh(const CVector3& radians);
+	CVector4 Asinh(const CVector4& radians);
+
+	float    Acosh(const float& radians);
+	CVector2 Acosh(const CVector2& radians);
+	CVector3 Acosh(const CVector3& radians);
+	CVector4 Acosh(const CVector4& radians);
+
+	float    Atanh(const float& radians);
+	CVector2 Atanh(const CVector2& radians);
+	CVector3 Atanh(const CVector3& radians);
+	CVector4 Atanh(const CVector4& radians);
 	/*---------------------------------------Functions---------------------------------------*/
 	/*--------------------------------------Quaternions--------------------------------------*/
 	CQuaternion Cross(const CQuaternion& q1, const CQuaternion& q2);
@@ -56,6 +248,18 @@ namespace idaem
 
 	CQuaternion Conjugate(const CQuaternion& q);
 	CQuaternion Inverse(const CQuaternion& q);
+
+	CQuaternion Mix(const CQuaternion& q1, const CQuaternion& q2, const float& factor);
+	CQuaternion Lerp(const CQuaternion& q1, const CQuaternion& q2, const float& factor);
+	CQuaternion Slerp(const CQuaternion& q1, const CQuaternion& q2, const float& factor);
+
+	//float Roll(const CQuaternion& q);
+	//float Pitch(const CQuaternion& q);
+	float Yaw(const CQuaternion& q);
+	float Angle(const CQuaternion& q);
+
+	//CVector3 EulerAngles(const CQuaternion& q);
+	CQuaternion Rotate(const CQuaternion& q, const float& angle, const CVector3& v);
 	/*---------------------------------------Functions---------------------------------------*/
 	/*----------------------------------------Vector2----------------------------------------*/
 	CVector2 Cross(const CVector2& v1, const CVector2& v2);
@@ -161,6 +365,10 @@ namespace idaem
 		CQuaternion();
 		CQuaternion(const float& s, const CVector3& v);
 		CQuaternion(const float& w, const float& x, const float& y, const float& z);
+		CQuaternion(const CVector3& v1, const CVector3& v2);
+		CQuaternion(const CVector3& eulerAngle);
+		CQuaternion(const CMatrix3x3& m);//
+		CQuaternion(const CMatrix4x4& m);//
 		CQuaternion(const CQuaternion& q);
 
 		CQuaternion& Add(const CQuaternion& q);
@@ -183,10 +391,10 @@ namespace idaem
 
 		friend CQuaternion operator+(const CQuaternion& q1, const CQuaternion& q2);
 		friend CQuaternion operator*(const CQuaternion& q1, const CQuaternion& q2);
-		friend CVector3 operator*(const CQuaternion& q, const CVector3& v);
-		friend CVector3 operator*(const CVector3& v, const CQuaternion& q);
-		friend CVector4 operator*(const CQuaternion& q, const CVector4& v);
-		friend CVector4 operator*(const CVector4& v, const CQuaternion& q);
+		friend CVector3    operator*(const CQuaternion& q, const CVector3& v);
+		friend CVector3    operator*(const CVector3& v, const CQuaternion& q);
+		friend CVector4    operator*(const CQuaternion& q, const CVector4& v);
+		friend CVector4    operator*(const CVector4& v, const CQuaternion& q);
 		friend CQuaternion operator*(const CQuaternion& q, const float& s);
 		friend CQuaternion operator*(const float& s, const CQuaternion& q);
 		friend CQuaternion operator/(const CQuaternion& q, const float& s);
@@ -249,6 +457,25 @@ namespace idaem
 		CVector2& operator++();
 		CVector2& operator--();
 
+		friend CVector2 LessThan(const CVector2& leftVector, const CVector2& rightVector);
+		friend CVector2 LessThan(const float& scalar, const CVector2& vector);
+		friend CVector2 LessThan(const CVector2& vector, const float& scalar);
+		friend CVector2 LessThanEqual(const CVector2& leftVector, const CVector2& rightVector);
+		friend CVector2 LessThanEqual(const float& scalar, const CVector2& vector);
+		friend CVector2 LessThanEqual(const CVector2& vector, const float& scalar);
+		friend CVector2 GreaterThan(const CVector2& leftVector, const CVector2& rightVector);
+		friend CVector2 GreaterThan(const float& scalar, const CVector2& vector);
+		friend CVector2 GreaterThan(const CVector2& vector, const float& scalar);
+		friend CVector2 GreaterThanEqual(const CVector2& leftVector, const CVector2& rightVector);
+		friend CVector2 GreaterThanEqual(const float& scalar, const CVector2& vector);
+		friend CVector2 GreaterThanEqual(const CVector2& vector, const float& scalar);
+		friend bool     Equal(const CVector2& leftVector, const CVector2& rightVector);
+		friend bool     Equal(const float& scalar, const CVector2& vector);
+		friend bool     Equal(const CVector2& vector, const float& scalar);
+		friend bool     NotEqual(const CVector2& leftVector, const CVector2& rightVector);
+		friend bool     NotEqual(const float& scalar, const CVector2& vector);
+		friend bool     NotEqual(const CVector2& vector, const float& scalar);
+
 		friend CVector2 operator+(const CVector2& v);
 		friend CVector2 operator-(const CVector2& v);
 
@@ -266,8 +493,24 @@ namespace idaem
 		friend CVector2 operator/(const float& s, const CVector2& v);
 		friend CVector2 operator/(const CVector2& v1, const CVector2& v2);
 
-		friend bool operator==(const CVector2& leftVector, const CVector2& rightVector);
-		friend bool operator!=(const CVector2& leftVector, const CVector2& rightVector);
+		friend CVector2 operator<(const CVector2& leftVector, const CVector2& rightVector);
+		friend CVector2 operator<(const float& scalar, const CVector2& vector);
+		friend CVector2 operator<(const CVector2& vector, const float& scalar);
+		friend CVector2 operator<=(const CVector2& leftVector, const CVector2& rightVector);
+		friend CVector2 operator<=(const float& scalar, const CVector2& vector);
+		friend CVector2 operator<=(const CVector2& vector, const float& scalar);
+		friend CVector2 operator>(const CVector2& leftVector, const CVector2& rightVector);
+		friend CVector2 operator>(const float& scalar, const CVector2& vector);
+		friend CVector2 operator>(const CVector2& vector, const float& scalar);
+		friend CVector2 operator>=(const CVector2& leftVector, const CVector2& rightVector);
+		friend CVector2 operator>=(const float& scalar, const CVector2& vector);
+		friend CVector2 operator>=(const CVector2& vector, const float& scalar);
+		friend bool     operator==(const CVector2& leftVector, const CVector2& rightVector);
+		friend bool     operator==(const float& scalar, const CVector2& vector);
+		friend bool     operator==(const CVector2& vector, const float& scalar);
+		friend bool     operator!=(const CVector2& leftVector, const CVector2& rightVector);
+		friend bool     operator!=(const float& scalar, const CVector2& vector);
+		friend bool     operator!=(const CVector2& vector, const float& scalar);
 
 		friend std::ostream& operator<<(std::ostream& stream, const CVector2& v);
 	} typedef vec2;
@@ -325,6 +568,25 @@ namespace idaem
 		CVector3& operator++();
 		CVector3& operator--();
 
+		friend CVector3 LessThan(const CVector3& leftVector, const CVector3& rightVector);
+		friend CVector3 LessThan(const float& scalar, const CVector3& vector);
+		friend CVector3 LessThan(const CVector3& vector, const float& scalar);
+		friend CVector3 LessThanEqual(const CVector3& leftVector, const CVector3& rightVector);
+		friend CVector3 LessThanEqual(const float& scalar, const CVector3& vector);
+		friend CVector3 LessThanEqual(const CVector3& vector, const float& scalar);
+		friend CVector3 GreaterThan(const CVector3& leftVector, const CVector3& rightVector);
+		friend CVector3 GreaterThan(const float& scalar, const CVector3& vector);
+		friend CVector3 GreaterThan(const CVector3& vector, const float& scalar);
+		friend CVector3 GreaterThanEqual(const CVector3& leftVector, const CVector3& rightVector);
+		friend CVector3 GreaterThanEqual(const float& scalar, const CVector3& vector);
+		friend CVector3 GreaterThanEqual(const CVector3& vector, const float& scalar);
+		friend bool     Equal(const CVector3& leftVector, const CVector3& rightVector);
+		friend bool     Equal(const float& scalar, const CVector3& vector);
+		friend bool     Equal(const CVector3& vector, const float& scalar);
+		friend bool     NotEqual(const CVector3& leftVector, const CVector3& rightVector);
+		friend bool     NotEqual(const float& scalar, const CVector3& vector);
+		friend bool     NotEqual(const CVector3& vector, const float& scalar);
+
 		friend CVector3 operator+(const CVector3& v);
 		friend CVector3 operator-(const CVector3& v);
 
@@ -342,8 +604,24 @@ namespace idaem
 		friend CVector3 operator/(const float& s, const CVector3& v);
 		friend CVector3 operator/(const CVector3& v1, const CVector3& v2);
 
-		friend bool operator==(const CVector3& leftVector, const CVector3& rightVector);
-		friend bool operator!=(const CVector3& leftVector, const CVector3& rightVector);
+		friend CVector3 operator<(const CVector3& leftVector, const CVector3& rightVector);
+		friend CVector3 operator<(const float& scalar, const CVector3& vector);
+		friend CVector3 operator<(const CVector3& vector, const float& scalar);
+		friend CVector3 operator<=(const CVector3& leftVector, const CVector3& rightVector);
+		friend CVector3 operator<=(const float& scalar, const CVector3& vector);
+		friend CVector3 operator<=(const CVector3& vector, const float& scalar);
+		friend CVector3 operator>(const CVector3& leftVector, const CVector3& rightVector);
+		friend CVector3 operator>(const float& scalar, const CVector3& vector);
+		friend CVector3 operator>(const CVector3& vector, const float& scalar);
+		friend CVector3 operator>=(const CVector3& leftVector, const CVector3& rightVector);
+		friend CVector3 operator>=(const float& scalar, const CVector3& vector);
+		friend CVector3 operator>=(const CVector3& vector, const float& scalar);
+		friend bool     operator==(const CVector3& leftVector, const CVector3& rightVector);
+		friend bool     operator==(const float& scalar, const CVector3& vector);
+		friend bool     operator==(const CVector3& vector, const float& scalar);
+		friend bool     operator!=(const CVector3& leftVector, const CVector3& rightVector);
+		friend bool     operator!=(const float& scalar, const CVector3& vector);
+		friend bool     operator!=(const CVector3& vector, const float& scalar);
 
 		friend std::ostream& operator<<(std::ostream& stream, const CVector3& v);
 	} typedef vec3;
@@ -403,6 +681,25 @@ namespace idaem
 		CVector4& operator++();
 		CVector4& operator--();
 
+		friend CVector4 LessThan(const CVector4& leftVector, const CVector4& rightVector);
+		friend CVector4 LessThan(const float& scalar, const CVector4& vector);
+		friend CVector4 LessThan(const CVector4& vector, const float& scalar);
+		friend CVector4 LessThanEqual(const CVector4& leftVector, const CVector4& rightVector);
+		friend CVector4 LessThanEqual(const float& scalar, const CVector4& vector);
+		friend CVector4 LessThanEqual(const CVector4& vector, const float& scalar);
+		friend CVector4 GreaterThan(const CVector4& leftVector, const CVector4& rightVector);
+		friend CVector4 GreaterThan(const float& scalar, const CVector4& vector);
+		friend CVector4 GreaterThan(const CVector4& vector, const float& scalar);
+		friend CVector4 GreaterThanEqual(const CVector4& leftVector, const CVector4& rightVector);
+		friend CVector4 GreaterThanEqual(const float& scalar, const CVector4& vector);
+		friend CVector4 GreaterThanEqual(const CVector4& vector, const float& scalar);
+		friend bool     Equal(const CVector4& leftVector, const CVector4& rightVector);
+		friend bool     Equal(const float& scalar, const CVector4& vector);
+		friend bool     Equal(const CVector4& vector, const float& scalar);
+		friend bool     NotEqual(const CVector4& leftVector, const CVector4& rightVector);
+		friend bool     NotEqual(const float& scalar, const CVector4& vector);
+		friend bool     NotEqual(const CVector4& vector, const float& scalar);
+
 		friend CVector4 operator+(const CVector4& v);
 		friend CVector4 operator-(const CVector4& v);
 
@@ -420,8 +717,24 @@ namespace idaem
 		friend CVector4 operator/(const float& s, const CVector4& v);
 		friend CVector4 operator/(const CVector4& v1, const CVector4& v2);
 
-		friend bool operator==(const CVector4& leftVector, const CVector4& rightVector);
-		friend bool operator!=(const CVector4& leftVector, const CVector4& rightVector);
+		friend CVector4 operator<(const CVector4& leftVector, const CVector4& rightVector);
+		friend CVector4 operator<(const float& scalar, const CVector4& vector);
+		friend CVector4 operator<(const CVector4& vector, const float& scalar);
+		friend CVector4 operator<=(const CVector4& leftVector, const CVector4& rightVector);
+		friend CVector4 operator<=(const float& scalar, const CVector4& vector);
+		friend CVector4 operator<=(const CVector4& vector, const float& scalar);
+		friend CVector4 operator>(const CVector4& leftVector, const CVector4& rightVector);
+		friend CVector4 operator>(const float& scalar, const CVector4& vector);
+		friend CVector4 operator>(const CVector4& vector, const float& scalar);
+		friend CVector4 operator>=(const CVector4& leftVector, const CVector4& rightVector);
+		friend CVector4 operator>=(const float& scalar, const CVector4& vector);
+		friend CVector4 operator>=(const CVector4& vector, const float& scalar);
+		friend bool     operator==(const CVector4& leftVector, const CVector4& rightVector);
+		friend bool     operator==(const float& scalar, const CVector4& vector);
+		friend bool     operator==(const CVector4& vector, const float& scalar);
+		friend bool     operator!=(const CVector4& leftVector, const CVector4& rightVector);
+		friend bool     operator!=(const float& scalar, const CVector4& vector);
+		friend bool     operator!=(const CVector4& vector, const float& scalar);
 
 		friend std::ostream& operator<<(std::ostream& stream, const CVector4& v);
 	} typedef vec4;

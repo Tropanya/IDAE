@@ -136,17 +136,9 @@ int main()
 
 	CShaderProgram* program = new CShaderProgram("res/test.vert", "res/test.frag");
 
-	mat2 rot2(1, 2, 3, 4);
+	CQuaternion q(90.0f, 1.0f, 1.0f, 1.0f);
 
-	vec2 v2(5, 6);
-
-	v2 = v2 * rot2;
-
-	mat2 rot(1, 2, 3, 4);
-
-	vec2 v(5, 6);
-
-	v = rot * v;
+	float a = Angle(q);
 
 	float vertices1[] = {
 		 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
@@ -212,7 +204,9 @@ int main()
 		window->Clear();
 
 		GLfloat timeValue = (float)glfwGetTime();
-		GLfloat moved = (idaem::Sin(idaem::ToDegrees(timeValue)) / 2);
+		GLfloat moved = (idaem::Sin(timeValue) / 2);
+
+		cout << moved << endl;
 
 		program->SetUniform1f("xOffset", moved);
 

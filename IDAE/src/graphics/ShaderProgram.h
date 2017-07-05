@@ -46,6 +46,6 @@ namespace idaeg
 		void Enable();
 		void Disable();
 	};
-}
+}// namespace idaeg
 
 #endif

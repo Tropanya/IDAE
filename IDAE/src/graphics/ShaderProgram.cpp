@@ -143,4 +143,4 @@ namespace idaeg
 	{
 		glUseProgram(0);
 	}
-}
+}// namespace idaeg

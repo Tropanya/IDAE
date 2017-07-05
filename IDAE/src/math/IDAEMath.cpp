@@ -4,15 +4,842 @@ namespace idaem
 {
 	/*---------------------------------------Functions---------------------------------------*/
 	/*-----------------------------------------Start-----------------------------------------*/
+	float Abs(const float& s) { return abs(s); }
+
+	CVector2 Abs(const CVector2& v)
+	{
+		return CVector2(abs(v.element[0]),
+						abs(v.element[1]));
+	}
+
+	CVector3 Abs(const CVector3& v)
+	{
+		return CVector3(abs(v.element[0]),
+						abs(v.element[1]),
+						abs(v.element[2]));
+	}
+
+	CVector4 Abs(const CVector4& v)
+	{
+		return CVector4(abs(v.element[0]),
+						abs(v.element[1]),
+						abs(v.element[2]),
+						abs(v.element[3]));
+	}
+
+	float Floor(const float& s) { return floor(s); }
+
+	CVector2 Floor(const CVector2& v)
+	{
+		return CVector2(floor(v.element[0]),
+						floor(v.element[1]));
+	}
+
+	CVector3 Floor(const CVector3& v)
+	{
+		return CVector3(floor(v.element[0]),
+						floor(v.element[1]),
+						floor(v.element[2]));
+	}
+
+	CVector4 Floor(const CVector4& v)
+	{
+		return CVector4(floor(v.element[0]),
+						floor(v.element[1]),
+						floor(v.element[2]),
+						floor(v.element[3]));
+	}
+
+	float Trunc(const float& s) { return trunc(s); }
+
+	CVector2 Trunc(const CVector2& v)
+	{
+		return CVector2(trunc(v.element[0]),
+						trunc(v.element[1]));
+	}
+
+	CVector3 Trunc(const CVector3& v)
+	{
+		return CVector3(trunc(v.element[0]),
+						trunc(v.element[1]),
+						trunc(v.element[2]));
+	}
+
+	CVector4 Trunc(const CVector4& v)
+	{
+		return CVector4(trunc(v.element[0]),
+						trunc(v.element[1]),
+						trunc(v.element[2]),
+						trunc(v.element[3]));
+	}
+
+	float Round(const float& s) { return round(s); }
+
+	CVector2 Round(const CVector2& v)
+	{
+		return CVector2(round(v.element[0]),
+						round(v.element[1]));
+	}
+
+	CVector3 Round(const CVector3& v)
+	{
+		return CVector3(round(v.element[0]),
+						round(v.element[1]),
+						round(v.element[2]));
+	}
+
+	CVector4 Round(const CVector4& v)
+	{
+		return CVector4(round(v.element[0]),
+						round(v.element[1]),
+						round(v.element[2]),
+						round(v.element[3]));
+	}
+
+	float Ceil(const float& s) { return ceil(s); }
+
+	CVector2 Ceil(const CVector2& v)
+	{
+		return CVector2(ceil(v.element[0]),
+						ceil(v.element[1]));
+	}
+
+	CVector3 Ceil(const CVector3& v)
+	{
+		return CVector3(ceil(v.element[0]),
+						ceil(v.element[1]),
+						ceil(v.element[2]));
+	}
+
+	CVector4 Ceil(const CVector4& v)
+	{
+		return CVector4(ceil(v.element[0]),
+						ceil(v.element[1]),
+						ceil(v.element[2]),
+						ceil(v.element[3]));
+	}
+
+	float Fract(const float& s) { return s - Floor(s); }
+
+	CVector2 Fract(const CVector2& v) { return v - Floor(v); }
+
+	CVector3 Fract(const CVector3& v) { return v - Floor(v); }
+
+	CVector4 Fract(const CVector4& v) { return v - Floor(v); }
+
+	float Mod(const float& s1, const float& s2) { return fmod(s1, s2); }
+
+	CVector2 Mod(const CVector2& v, const float& s)
+	{
+		return CVector2(fmod(v.element[0], s),
+						fmod(v.element[1], s));
+	}
+
+	CVector3 Mod(const CVector3& v, const float& s)
+	{
+		return CVector3(fmod(v.element[0], s),
+						fmod(v.element[1], s),
+						fmod(v.element[2], s));
+	}
+
+	CVector4 Mod(const CVector4& v, const float& s)
+	{
+		return CVector4(fmod(v.element[0], s),
+						fmod(v.element[1], s),
+						fmod(v.element[2], s),
+						fmod(v.element[3], s));
+	}
+
+	CVector2 Mod(const CVector2& v1, const CVector2& v2)
+	{
+		return CVector2(fmod(v1.element[0], v2.element[0]),
+						fmod(v1.element[1], v2.element[1]));
+	}
+
+	CVector3 Mod(const CVector3& v1, const CVector3& v2)
+	{
+		return CVector3(fmod(v1.element[0], v2.element[0]),
+						fmod(v1.element[1], v2.element[1]),
+						fmod(v1.element[2], v2.element[2]));
+	}
+
+	CVector4 Mod(const CVector4& v1, const CVector4& v2)
+	{
+		return CVector4(fmod(v1.element[0], v2.element[0]),
+						fmod(v1.element[1], v2.element[1]),
+						fmod(v1.element[2], v2.element[2]),
+						fmod(v1.element[3], v2.element[3]));
+	}
+
+	float Min(const float& s1, const float& s2) { return fmin(s1, s2); }
+
+	CVector2 Min(const CVector2& v, const float& s)
+	{
+		return CVector2(fmin(v.element[0], s),
+						fmin(v.element[1], s));
+	}
+
+	CVector3 Min(const CVector3& v, const float& s)
+	{
+		return CVector3(fmin(v.element[0], s),
+						fmin(v.element[1], s),
+						fmin(v.element[2], s));
+	}
+
+	CVector4 Min(const CVector4& v, const float& s)
+	{
+		return CVector4(fmin(v.element[0], s),
+						fmin(v.element[1], s),
+						fmin(v.element[2], s),
+						fmin(v.element[3], s));
+	}
+
+	CVector2 Min(const CVector2& v1, const CVector2& v2)
+	{
+		return CVector2(fmin(v1.element[0], v2.element[0]),
+						fmin(v1.element[1], v2.element[1]));
+	}
+
+	CVector3 Min(const CVector3& v1, const CVector3& v2)
+	{
+		return CVector3(fmin(v1.element[0], v2.element[0]),
+						fmin(v1.element[1], v2.element[1]),
+						fmin(v1.element[2], v2.element[2]));
+	}
+
+	CVector4 Min(const CVector4& v1, const CVector4& v2)
+	{
+		return CVector4(fmin(v1.element[0], v2.element[0]),
+						fmin(v1.element[1], v2.element[1]),
+						fmin(v1.element[2], v2.element[2]),
+						fmin(v1.element[3], v2.element[3]));
+	}
+
+	float Max(const float& s1, const float& s2) { return fmax(s1, s2); }
+
+	CVector2 Max(const CVector2& v, const float& s)
+	{
+		return CVector2(fmax(v.element[0], s),
+						fmax(v.element[1], s));
+	}
+
+	CVector3 Max(const CVector3& v, const float& s)
+	{
+		return CVector3(fmax(v.element[0], s),
+						fmax(v.element[1], s),
+						fmax(v.element[2], s));
+	}
+
+	CVector4 Max(const CVector4& v, const float& s)
+	{
+		return CVector4(fmax(v.element[0], s),
+						fmax(v.element[1], s),
+						fmax(v.element[2], s),
+						fmax(v.element[3], s));
+	}
+
+	CVector2 Max(const CVector2& v1, const CVector2& v2)
+	{
+		return CVector2(fmax(v1.element[0], v2.element[0]),
+						fmax(v1.element[1], v2.element[1]));
+	}
+
+	CVector3 Max(const CVector3& v1, const CVector3& v2)
+	{
+		return CVector3(fmax(v1.element[0], v2.element[0]),
+						fmax(v1.element[1], v2.element[1]),
+						fmax(v1.element[2], v2.element[2]));
+	}
+
+	CVector4 Max(const CVector4& v1, const CVector4& v2)
+	{
+		return CVector4(fmax(v1.element[0], v2.element[0]),
+						fmax(v1.element[1], v2.element[1]),
+						fmax(v1.element[2], v2.element[2]),
+						fmax(v1.element[3], v2.element[3]));
+	}
+
+	float Clamp(const float& s, const float& minS, const float& maxS) { return Min(Max(s, minS), maxS); }
+
+	CVector2 Clamp(const CVector2& v, const float& minS, const float& maxS) { return Min(Max(v, minS), maxS); }
+
+	CVector3 Clamp(const CVector3& v, const float& minS, const float& maxS) { return Min(Max(v, minS), maxS); }
+
+	CVector4 Clamp(const CVector4& v, const float& minS, const float& maxS) { return Min(Max(v, minS), maxS); }
+
+	CVector2 Clamp(const CVector2& v, const CVector2& minV, const CVector2& maxV) { return Min(Max(v, minV), maxV); }
+
+	CVector3 Clamp(const CVector3& v, const CVector3& minV, const CVector3& maxV) { return Min(Max(v, minV), maxV); }
+
+	CVector4 Clamp(const CVector4& v, const CVector4& minV, const CVector4& maxV) { return Min(Max(v, minV), maxV); }
+
+	float Mix(const float& s1, const float& s2, const float& s3) { return s1 + s3 * (s2 - s1); }
+
+	CVector2 Mix(const CVector2& v1, const CVector2& v2, const float& s) { return v1 + s * (v2 - v1); }
+
+	CVector3 Mix(const CVector3& v1, const CVector3& v2, const float& s) { return v1 + s * (v2 - v1); }
+
+	CVector4 Mix(const CVector4& v1, const CVector4& v2, const float& s) { return v1 + s * (v2 - v1); }
+
+	CVector2 Mix(const CVector2& v1, const CVector2& v2, const CVector2& v3) { return v1 + v3 * (v2 - v1); }
+
+	CVector3 Mix(const CVector3& v1, const CVector3& v2, const CVector3& v3) { return v1 + v3 * (v2 - v1); }
+
+	CVector4 Mix(const CVector4& v1, const CVector4& v2, const CVector4& v3) { return v1 + v3 * (v2 - v1); }
+
+	float Step(const float& edge, const float& s) { return Mix(1.0f, 0.0f, (s < edge)); }
+
+	CVector2 Step(const float& edge, const CVector2& s) { return Mix(1.0f, 0.0f, LessThan(s, edge)); }
+
+	CVector3 Step(const float& edge, const CVector3& s) { return Mix(1.0f, 0.0f, LessThan(s, edge)); }
+
+	CVector4 Step(const float& edge, const CVector4& s) { return Mix(1.0f, 0.0f, LessThan(s, edge)); }
+
+	CVector2 Step(const CVector2& edge, const CVector2& s) { return Mix(1.0f, 0.0f, LessThan(s, edge)); }
+
+	CVector3 Step(const CVector3& edge, const CVector3& s) { return Mix(1.0f, 0.0f, LessThan(s, edge)); }
+
+	CVector4 Step(const CVector4& edge, const CVector4& s) { return Mix(1.0f, 0.0f, LessThan(s, edge)); }
+
+	float SmoothStep(const float& edge1, const float& edge2, const float& s)
+	{
+		const float tmp(Clamp((s - edge1) / (edge2 - edge1), 0.0f, 1.0f));
+
+		return tmp * tmp * (3.0f - 2.0f * tmp);
+	}
+
+	CVector2 SmoothStep(const float& edge1, const float& edge2, const CVector2& v)
+	{
+		const CVector2 tmp(Clamp((v - edge1) / (edge2 - edge1), 0.0f, 1.0f));
+
+		return tmp * tmp * (3.0f - 2.0f * tmp);
+	}
+
+	CVector3 SmoothStep(const float& edge1, const float& edge2, const CVector3& v)
+	{
+		const CVector3 tmp(Clamp((v - edge1) / (edge2 - edge1), 0.0f, 1.0f));
+
+		return tmp * tmp * (3.0f - 2.0f * tmp);
+	}
+
+	CVector4 SmoothStep(const float& edge1, const float& edge2, const CVector4& v)
+	{
+		const CVector4 tmp(Clamp((v - edge1) / (edge2 - edge1), 0.0f, 1.0f));
+
+		return tmp * tmp * (3.0f - 2.0f * tmp);
+	}
+
+	CVector2 SmoothStep(const CVector2& edge1, const CVector2& edge2, const CVector2& v)
+	{
+		const CVector2 tmp(Clamp((v - edge1) / (edge2 - edge1), 0.0f, 1.0f));
+
+		return tmp * tmp * (3.0f - 2.0f * tmp);
+	}
+
+	CVector3 SmoothStep(const CVector3& edge1, const CVector3& edge2, const CVector3& v)
+	{
+		const CVector3 tmp(Clamp((v - edge1) / (edge2 - edge1), 0.0f, 1.0f));
+
+		return tmp * tmp * (3.0f - 2.0f * tmp);
+	}
+
+	CVector4 SmoothStep(const CVector4& edge1, const CVector4& edge2, const CVector4& v)
+	{
+		const CVector4 tmp(Clamp((v - edge1) / (edge2 - edge1), 0.0f, 1.0f));
+
+		return tmp * tmp * (3.0f - 2.0f * tmp);
+	}
+
+	float Fma(const float& s1, const float& s2, const float& s3) { return s1 * s2 + s3; }
+
+	float Pow(const float& s1, const float& s2) { return pow(s1, s2); }
+
+	CVector2 Pow(const CVector2& v, const float& s)
+	{
+		return CVector2(pow(v.element[0], s),
+						pow(v.element[1], s));
+	}
+
+	CVector3 Pow(const CVector3& v, const float& s)
+	{
+		return CVector3(pow(v.element[0], s),
+						pow(v.element[1], s),
+						pow(v.element[2], s));
+	}
+
+	CVector4 Pow(const CVector4& v, const float& s)
+	{
+		return CVector4(pow(v.element[0], s),
+						pow(v.element[1], s),
+						pow(v.element[2], s),
+						pow(v.element[3], s));
+	}
+
+	CVector2 Pow(const CVector2& v1, const CVector2& v2)
+	{
+		return CVector2(pow(v1.element[0], v2.element[0]),
+						pow(v1.element[1], v2.element[1]));
+	}
+
+	CVector3 Pow(const CVector3& v1, const CVector3& v2)
+	{
+		return CVector3(pow(v1.element[0], v2.element[0]),
+						pow(v1.element[1], v2.element[1]),
+						pow(v1.element[2], v2.element[2]));
+	}
+
+	CVector4 Pow(const CVector4& v1, const CVector4& v2)
+	{
+		return CVector4(pow(v1.element[0], v2.element[0]),
+						pow(v1.element[1], v2.element[1]),
+						pow(v1.element[2], v2.element[2]),
+						pow(v1.element[3], v2.element[3]));
+	}
+
+	float Exp(const float& s) { return exp(s); }
+
+	CVector2 Exp(const CVector2& v)
+	{
+		return CVector2(exp(v.element[0]),
+						exp(v.element[1]));
+	}
+
+	CVector3 Exp(const CVector3& v)
+	{
+		return CVector3(exp(v.element[0]),
+						exp(v.element[1]),
+						exp(v.element[2]));
+	}
+
+	CVector4 Exp(const CVector4& v)
+	{
+		return CVector4(exp(v.element[0]),
+						exp(v.element[1]),
+						exp(v.element[2]),
+						exp(v.element[3]));
+	}
+
+	float Exp2(const float& s) { return exp2(s); }
+
+	CVector2 Exp2(const CVector2& v)
+	{
+		return CVector2(exp2(v.element[0]),
+						exp2(v.element[1]));
+	}
+
+	CVector3 Exp2(const CVector3& v)
+	{
+		return CVector3(exp2(v.element[0]),
+						exp2(v.element[1]),
+						exp2(v.element[2]));
+	}
+
+	CVector4 Exp2(const CVector4& v)
+	{
+		return CVector4(exp2(v.element[0]),
+						exp2(v.element[1]),
+						exp2(v.element[2]),
+						exp2(v.element[3]));
+	}
+
+	float Log(const float& s) { return log(s); }
+
+	CVector2 Log(const CVector2& v)
+	{
+		return CVector2(log(v.element[0]),
+						log(v.element[1]));
+	}
+
+	CVector3 Log(const CVector3& v)
+	{
+		return CVector3(log(v.element[0]),
+						log(v.element[1]),
+						log(v.element[2]));
+	}
+
+	CVector4 Log(const CVector4& v)
+	{
+		return CVector4(log(v.element[0]),
+						log(v.element[1]),
+						log(v.element[2]),
+						log(v.element[3]));
+	}
+
+	float Log2(const float& s) { return log2(s); }
+
+	CVector2 Log2(const CVector2& v)
+	{
+		return CVector2(log2(v.element[0]),
+						log2(v.element[1]));
+	}
+
+	CVector3 Log2(const CVector3& v)
+	{
+		return CVector3(log2(v.element[0]),
+						log2(v.element[1]),
+						log2(v.element[2]));
+	}
+
+	CVector4 Log2(const CVector4& v)
+	{
+		return CVector4(log2(v.element[0]),
+						log2(v.element[1]),
+						log2(v.element[2]),
+						log2(v.element[3]));
+	}
+
+	float Sqrt(const float& s) { return sqrt(s); }
+
+	CVector2 Sqrt(const CVector2& v)
+	{
+		return CVector2(sqrt(v.element[0]),
+						sqrt(v.element[1]));
+	}
+
+	CVector3 Sqrt(const CVector3& v)
+	{
+		return CVector3(sqrt(v.element[0]),
+						sqrt(v.element[1]),
+						sqrt(v.element[2]));
+	}
+
+	CVector4 Sqrt(const CVector4& v)
+	{
+		return CVector4(sqrt(v.element[0]),
+						sqrt(v.element[1]),
+						sqrt(v.element[2]),
+						sqrt(v.element[3]));
+	}
+
+	float InvSqrt(const float& s) { return 1.0f / Sqrt(s); }
+
+	CVector2 InvSqrt(const CVector2& v) { return 1.0f / Sqrt(v); }
+
+	CVector3 InvSqrt(const CVector3& v) { return 1.0f / Sqrt(v); }
+
+	CVector4 InvSqrt(const CVector4& v) { return 1.0f / Sqrt(v); }
+
 	float ToRadians(const float& degrees) { return (degrees * (PI_VALUE / 180.0f)); }
+
+	CVector2 ToRadians(const CVector2& degrees)
+	{
+		return CVector2(ToRadians(degrees.element[0]),
+						ToRadians(degrees.element[1]));
+	}
+
+	CVector3 ToRadians(const CVector3& degrees)
+	{
+		return CVector3(ToRadians(degrees.element[0]),
+						ToRadians(degrees.element[1]),
+						ToRadians(degrees.element[2]));
+	}
+
+	CVector4 ToRadians(const CVector4& degrees)
+	{
+		return CVector4(ToRadians(degrees.element[0]),
+						ToRadians(degrees.element[1]),
+						ToRadians(degrees.element[2]),
+						ToRadians(degrees.element[3]));
+	}
 
 	float ToDegrees(const float& radians) { return (radians * (180.0f / PI_VALUE)); }
 
-	float Sin(const float& degrees) { return sin(ToRadians(degrees)); }
+	CVector2 ToDegrees(const CVector2& radians)
+	{
+		return CVector2(ToDegrees(radians.element[0]),
+						ToDegrees(radians.element[1]));
+	}
 
-	float Cos(const float& degrees) { return cos(ToRadians(degrees)); }
+	CVector3 ToDegrees(const CVector3& radians)
+	{
+		return CVector3(ToDegrees(radians.element[0]),
+						ToDegrees(radians.element[1]),
+						ToDegrees(radians.element[2]));
+	}
 
-	float Tan(const float& degrees) { return tan(ToRadians(degrees)); }
+	CVector4 ToDegrees(const CVector4& radians)
+	{
+		return CVector4(ToDegrees(radians.element[0]),
+						ToDegrees(radians.element[1]),
+						ToDegrees(radians.element[2]),
+						ToDegrees(radians.element[3]));
+	}
+
+	float Sin(const float& radians) { return sin(radians); }
+
+	CVector2 Sin(const CVector2& radians)
+	{
+		return CVector2(sin(radians.element[0]),
+						sin(radians.element[1]));
+	}
+
+	CVector3 Sin(const CVector3& radians)
+	{
+		return CVector3(sin(radians.element[0]),
+						sin(radians.element[1]),
+						sin(radians.element[2]));
+	}
+
+	CVector4 Sin(const CVector4& radians)
+	{
+		return CVector4(sin(radians.element[0]),
+						sin(radians.element[1]),
+						sin(radians.element[2]),
+						sin(radians.element[3]));
+	}
+
+	float Cos(const float& degree) { return cos(degree); }
+
+	CVector2 Cos(const CVector2& radians)
+	{
+		return CVector2(cos(radians.element[0]),
+						cos(radians.element[1]));
+	}
+
+	CVector3 Cos(const CVector3& radians)
+	{
+		return CVector3(cos(radians.element[0]),
+						cos(radians.element[1]),
+						cos(radians.element[2]));
+	}
+
+	CVector4 Cos(const CVector4& radians)
+	{
+		return CVector4(cos(radians.element[0]),
+						cos(radians.element[1]),
+						cos(radians.element[2]),
+						cos(radians.element[3]));
+	}
+
+	float Tan(const float& degree) { return tan(degree); }
+
+	CVector2 Tan(const CVector2& radians)
+	{
+		return CVector2(tan(radians.element[0]),
+						tan(radians.element[1]));
+	}
+
+	CVector3 Tan(const CVector3& radians)
+	{
+		return CVector3(tan(radians.element[0]),
+						tan(radians.element[1]),
+						tan(radians.element[2]));
+	}
+
+	CVector4 Tan(const CVector4& radians)
+	{
+		return CVector4(tan(radians.element[0]),
+						tan(radians.element[1]),
+						tan(radians.element[2]),
+						tan(radians.element[3]));
+	}
+
+	float Asin(const float& radians) { return asin(radians); }
+
+	CVector2 Asin(const CVector2& radians)
+	{
+		return CVector2(asin(radians.element[0]),
+						asin(radians.element[1]));
+	}
+
+	CVector3 Asin(const CVector3& radians)
+	{
+		return CVector3(asin(radians.element[0]),
+						asin(radians.element[1]),
+						asin(radians.element[2]));
+	}
+
+	CVector4 Asin(const CVector4& radians)
+	{
+		return CVector4(asin(radians.element[0]),
+						asin(radians.element[1]),
+						asin(radians.element[2]),
+						asin(radians.element[3]));
+	}
+
+	float Acos(const float& radians) { return acos(radians); }
+
+	CVector2 Acos(const CVector2& radians)
+	{
+		return CVector2(acos(radians.element[0]),
+						acos(radians.element[1]));
+	}
+
+	CVector3 Acos(const CVector3& radians)
+	{
+		return CVector3(acos(radians.element[0]),
+						acos(radians.element[1]),
+						acos(radians.element[2]));
+	}
+
+	CVector4 Acos(const CVector4& radians)
+	{
+		return CVector4(acos(radians.element[0]),
+						acos(radians.element[1]),
+						acos(radians.element[2]),
+						acos(radians.element[3]));
+	}
+
+	float Atan(const float& radians) { return atan(radians); }
+
+	CVector2 Atan(const CVector2& radians)
+	{
+		return CVector2(atan(radians.element[0]),
+						atan(radians.element[1]));
+	}
+
+	CVector3 Atan(const CVector3& radians)
+	{
+		return CVector3(atan(radians.element[0]),
+						atan(radians.element[1]),
+						atan(radians.element[2]));
+	}
+
+	CVector4 Atan(const CVector4& radians)
+	{
+		return CVector4(atan(radians.element[0]),
+						atan(radians.element[1]),
+						atan(radians.element[2]),
+						atan(radians.element[3]));
+	}
+
+	float Sinh(const float& radians) { return sinh(radians); }
+
+	CVector2 Sinh(const CVector2& radians)
+	{
+		return CVector2(sinh(radians.element[0]),
+						sinh(radians.element[1]));
+	}
+
+	CVector3 Sinh(const CVector3& radians)
+	{
+		return CVector3(sinh(radians.element[0]),
+						sinh(radians.element[1]),
+						sinh(radians.element[2]));
+	}
+
+	CVector4 Sinh(const CVector4& radians)
+	{
+		return CVector4(sinh(radians.element[0]),
+						sinh(radians.element[1]),
+						sinh(radians.element[2]),
+						sinh(radians.element[3]));
+	}
+
+	float Cosh(const float& radians) { return cosh(radians); }
+
+	CVector2 Cosh(const CVector2& radians)
+	{
+		return CVector2(cosh(radians.element[0]),
+						cosh(radians.element[1]));
+	}
+
+	CVector3 Cosh(const CVector3& radians)
+	{
+		return CVector3(cosh(radians.element[0]),
+						cosh(radians.element[1]),
+						cosh(radians.element[2]));
+	}
+
+	CVector4 Cosh(const CVector4& radians)
+	{
+		return CVector4(cosh(radians.element[0]),
+						cosh(radians.element[1]),
+						cosh(radians.element[2]),
+						cosh(radians.element[3]));
+	}
+
+	float Tanh(const float& radians) { return tanh(radians); }
+
+	CVector2 Tanh(const CVector2& radians)
+	{
+		return CVector2(tanh(radians.element[0]),
+						tanh(radians.element[1]));
+	}
+
+	CVector3 Tanh(const CVector3& radians)
+	{
+		return CVector3(tanh(radians.element[0]),
+						tanh(radians.element[1]),
+						tanh(radians.element[2]));
+	}
+
+	CVector4 Tanh(const CVector4& radians)
+	{
+		return CVector4(tanh(radians.element[0]),
+						tanh(radians.element[1]),
+						tanh(radians.element[2]),
+						tanh(radians.element[3]));
+	}
+
+	float Asinh(const float& radians) { return asinh(radians); }
+
+	CVector2 Asinh(const CVector2& radians)
+	{
+		return CVector2(asinh(radians.element[0]),
+						asinh(radians.element[1]));
+	}
+
+	CVector3 Asinh(const CVector3& radians)
+	{
+		return CVector3(asinh(radians.element[0]),
+						asinh(radians.element[1]),
+						asinh(radians.element[2]));
+	}
+
+	CVector4 Asinh(const CVector4& radians)
+	{
+		return CVector4(asinh(radians.element[0]),
+						asinh(radians.element[1]),
+						asinh(radians.element[2]),
+						asinh(radians.element[3]));
+	}
+
+	float Acosh(const float& radians) { return acosh(radians); }
+
+	CVector2 Acosh(const CVector2& radians)
+	{
+		return CVector2(acosh(radians.element[0]),
+						acosh(radians.element[1]));
+	}
+
+	CVector3 Acosh(const CVector3& radians)
+	{
+		return CVector3(acosh(radians.element[0]),
+						acosh(radians.element[1]),
+						acosh(radians.element[2]));
+	}
+
+	CVector4 Acosh(const CVector4& radians)
+	{
+		return CVector4(acosh(radians.element[0]),
+						acosh(radians.element[1]),
+						acosh(radians.element[2]),
+						acosh(radians.element[3]));
+	}
+
+	float Atanh(const float& radians) { return atanh(radians); }
+
+	CVector2 Atanh(const CVector2& radians)
+	{
+		return CVector2(atanh(radians.element[0]),
+						atanh(radians.element[1]));
+	}
+
+	CVector3 Atanh(const CVector3& radians)
+	{
+		return CVector3(atanh(radians.element[0]),
+						atanh(radians.element[1]),
+						atanh(radians.element[2]));
+	}
+
+	CVector4 Atanh(const CVector4& radians)
+	{
+		return CVector4(atanh(radians.element[0]),
+						atanh(radians.element[1]),
+						atanh(radians.element[2]),
+						atanh(radians.element[3]));
+	}
 
 	CQuaternion Cross(const CQuaternion& q1, const CQuaternion& q2)
 	{
@@ -33,10 +860,10 @@ namespace idaem
 		return (q.element[0] * q.element[0]) +
 			   (q.element[1] * q.element[1]);
 	}
-
+	
 	float GetLength(const CQuaternion& q)
 	{
-		return sqrt(GetLengthSqrd(q));
+		return Sqrt(GetLengthSqrd(q));
 	}
 
 	CQuaternion Normalize(const CQuaternion& q)
@@ -58,6 +885,114 @@ namespace idaem
 	{
 		return Conjugate(q) / Dot(q, q);
 	}
+
+	CQuaternion Mix(const CQuaternion& q1, const CQuaternion& q2, const float& factor)
+	{
+		float cosTheta = Dot(q1, q2);
+
+		if (cosTheta > 1.0f - std::numeric_limits<float>::epsilon())
+		{
+			return CQuaternion(Mix(q1.element[0], q2.element[0], factor),
+							   Mix(q1.element[1], q2.element[1], factor),
+							   Mix(q1.element[2], q2.element[2], factor),
+							   Mix(q1.element[3], q2.element[3], factor));
+		}
+		else
+		{
+			float angle = Acos(cosTheta);
+
+			return (Sin((1.0f - factor) * angle) * q1 + Sin(factor * angle) * q2) / Sin(angle);
+		}
+	}
+
+	CQuaternion Lerp(const CQuaternion& q1, const CQuaternion& q2, const float& factor)
+	{
+		assert(factor >= 0.0f);
+		assert(factor <= 1.0f);
+
+		return q1 * (1.0f - factor) + (q2 * factor);
+	}
+
+	CQuaternion Slerp(const CQuaternion& q1, const CQuaternion& q2, const float& factor)
+	{
+		CQuaternion q3(q2);
+
+		float  cosTheta = Dot(q1, q2);
+
+		if (cosTheta < 0.0f)
+		{
+			q3 = -q2;
+			cosTheta = -cosTheta;
+		}
+
+		if (cosTheta > 1.0f - std::numeric_limits<float>::epsilon())
+		{
+			return CQuaternion(Mix(q1.element[0], q3.element[0], factor),
+							   Mix(q1.element[1], q3.element[1], factor),
+							   Mix(q1.element[2], q3.element[2], factor),
+							   Mix(q1.element[3], q3.element[3], factor));
+		}
+		else
+		{
+			float angle = Acos(cosTheta);
+
+			return (Sin((1.0f - factor) * angle) * q1 + Sin(factor * angle) * q3) / Sin(angle);
+		}
+	}
+
+	/*float Roll(const CQuaternion& q)
+	{
+		return Atan(2.0f * (q.element[1] * q.element[2] + q.element[0] * q.element[3]),
+							q.element[0] * q.element[0] +
+							q.element[1] * q.element[1] -
+							q.element[2] * q.element[2] -
+							q.element[3] * q.element[3]);
+	}
+
+	float Pitch(const CQuaternion& q)
+	{
+		return Atan(2.0f * (q.element[2] * q.element[3] + q.element[0] * q.element[1]),
+							q.element[0] * q.element[0] -
+							q.element[1] * q.element[1] -
+							q.element[2] * q.element[2] +
+							q.element[3] * q.element[3]);
+	}*/
+
+	float Yaw(const CQuaternion& q)
+	{
+		return Asin(Clamp(-2.0f * (q.element[1] * q.element[3] - q.element[0] * q.element[2]), -1.0f, 1.0f));
+	}
+
+	float Angle(const CQuaternion& q)
+	{
+		return Acos(q.element[0]) * 2;
+	}
+
+	/*CVector3 EulerAngles(const CQuaternion& q)
+	{
+		return CVector3(Pitch(q), Yaw(q), Roll(q));
+	}*/
+
+	CQuaternion Rotate(const CQuaternion& q, const float& angle, const CVector3& v)
+	{
+		CVector3 tmp(v);
+
+		float length = GetLength(tmp);
+
+		if (Abs(length - 1.0f) > 0.001f)
+		{
+			float oneOverLen = 1.0f / length;
+
+			tmp.element[0] *= oneOverLen;
+			tmp.element[1] *= oneOverLen;
+			tmp.element[2] *= oneOverLen;
+		}
+
+		const float angleRad(ToRadians(angle));
+		const float s = Sin(angleRad * 0.5f);
+
+		return q * CQuaternion(Cos(angleRad * 0.5f), tmp.element[0] * s, tmp.element[1] * s, tmp.element[2] * s);
+	}
 	
 	CVector2 Cross(const CVector2& v1, const CVector2& v2)
 	{
@@ -78,7 +1013,7 @@ namespace idaem
 
 	float GetLength(const CVector2& v)
 	{
-		return sqrt(GetLengthSqrd(v));
+		return Sqrt(GetLengthSqrd(v));
 	}
 
 	CVector2 Normalize(const CVector2& v)
@@ -109,7 +1044,7 @@ namespace idaem
 
 	float GetLength(const CVector3& v)
 	{
-		return sqrt(GetLengthSqrd(v));
+		return Sqrt(GetLengthSqrd(v));
 	}
 
 	CVector3 Normal(const CVector3& v1, const CVector3& v2, const CVector3& v3)
@@ -149,7 +1084,7 @@ namespace idaem
 
 	float GetLength(const CVector4& v)
 	{
-		return sqrt(GetLengthSqrd(v));
+		return Sqrt(GetLengthSqrd(v));
 	}
 
 	CVector4 Normal(const CVector4& v1, const CVector4& v2, const CVector4& v3)
@@ -212,7 +1147,7 @@ namespace idaem
 
 	CMatrix2x2 Rotate(const CMatrix2x2& m, const float& angle)
 	{
-		const float a = angle;
+		const float a = ToRadians(angle);
 		const float c = Cos(a);
 		const float s = Sin(a);
 
@@ -334,7 +1269,7 @@ namespace idaem
 
 	CMatrix3x3 Rotate(const CMatrix3x3& m, const float& angle, const CVector3& v)
 	{
-		const float a = angle;
+		const float a = ToRadians(angle);
 		const float c = Cos(a);
 		const float s = Sin(a);
 
@@ -503,7 +1438,7 @@ namespace idaem
 
 	CMatrix4x4 Rotate(const CMatrix4x4& m, const float& angle, const CVector3& v)
 	{
-		const float a = angle;
+		const float a = ToRadians(angle);
 		const float c = Cos(a);
 		const float s = Sin(a);
 
@@ -608,50 +1543,78 @@ namespace idaem
 	/*--------------------------------------Quaternions--------------------------------------*/
 	/*-----------------------------------------Start-----------------------------------------*/
 	CQuaternion::CQuaternion():
-		x(0.0f), y(0.0f), z(0.0f), w(1.0f)
+		w(ToRadians(1.0f)), x(0.0f), y(0.0f), z(0.0f)
 	{ }
 
 	CQuaternion::CQuaternion(const float& s, const CVector3& v) :
-		x(v.x), y(v.y), z(v.z), w(s)
+		w(ToRadians(s)), x(v.x), y(v.y), z(v.z)
 	{ }
 
 	CQuaternion::CQuaternion(const float& w, const float& x, const float& y, const float& z):
-		x(x), y(y), z(z), w(w)
+		w(ToRadians(w)), x(x), y(y), z(z)
 	{ }
 
+	CQuaternion::CQuaternion(const CVector3& v1, const CVector3& v2)
+	{
+		const CVector3 localCross(Cross(v1, v2));
+		float dot = Dot(v1, v2);
+		CQuaternion q(1.0f + dot, localCross.element[1], localCross.element[2], localCross.element[3]);
+
+		(*this) = Normalize(q);
+	}
+
+	CQuaternion::CQuaternion(const CVector3& eulerAngle)
+	{
+		CVector3 c = Cos(ToRadians(eulerAngle * 0.5f));
+		CVector3 s = Sin(ToRadians(eulerAngle * 0.5f));
+
+		this->element[0] = c.element[0] * c.element[1] * c.element[2] + s.element[0] * s.element[1] * s.element[2];
+		this->element[1] = s.element[0] * c.element[1] * c.element[2] - c.element[0] * s.element[1] * s.element[2];
+		this->element[2] = c.element[0] * s.element[1] * c.element[2] + s.element[0] * c.element[1] * s.element[2];
+		this->element[3] = c.element[0] * c.element[1] * s.element[2] - s.element[0] * s.element[1] * c.element[2];
+	}
+
+	CQuaternion::CQuaternion(const CMatrix3x3& m)
+	{
+	}
+
+	CQuaternion::CQuaternion(const CMatrix4x4& m)
+	{
+	}
+
 	CQuaternion::CQuaternion(const CQuaternion& q):
-		x(q.x), y(q.y), z(q.z), w(q.w)
+		w(ToRadians(q.w)), x(q.x), y(q.y), z(q.z)
 	{ }
 
 	CQuaternion& CQuaternion::Add(const CQuaternion& q)
 	{
-		this->w += q.element[0];
-		this->x += q.element[1];
-		this->y += q.element[2];
-		this->z += q.element[3];
+		this->element[0] += q.element[0];
+		this->element[1] += q.element[1];
+		this->element[2] += q.element[2];
+		this->element[3] += q.element[3];
 
-		return(*this);
+		return (*this);
 	}
 
 	CQuaternion& CQuaternion::Multiply(const CQuaternion& q)
 	{
-		CQuaternion const p(*this);
-		CQuaternion const q1(q);
+		const CQuaternion p(*this);
+		const CQuaternion q1(q);
 
-		this->w = p.element[0] * q1.element[0] - p.element[1] * q1.element[1] - p.element[2] * q1.element[2] - p.element[3] * q1.element[3];
-		this->x = p.element[0] * q1.element[1] + p.element[1] * q1.element[0] + p.element[2] * q1.element[3] - p.element[3] * q1.element[2];
-		this->y = p.element[0] * q1.element[2] + p.element[2] * q1.element[0] + p.element[3] * q1.element[1] - p.element[1] * q1.element[3];
-		this->z = p.element[0] * q1.element[3] + p.element[3] * q1.element[0] + p.element[1] * q1.element[2] - p.element[2] * q1.element[1];
+		this->element[0] = p.element[0] * q1.element[0] - p.element[1] * q1.element[1] - p.element[2] * q1.element[2] - p.element[3] * q1.element[3];
+		this->element[1] = p.element[0] * q1.element[1] + p.element[1] * q1.element[0] + p.element[2] * q1.element[3] - p.element[3] * q1.element[2];
+		this->element[2] = p.element[0] * q1.element[2] + p.element[2] * q1.element[0] + p.element[3] * q1.element[1] - p.element[1] * q1.element[3];
+		this->element[3] = p.element[0] * q1.element[3] + p.element[3] * q1.element[0] + p.element[1] * q1.element[2] - p.element[2] * q1.element[1];
 
 		return (*this);
 	}
 
 	CQuaternion& CQuaternion::Multiply(const float& s)
 	{
-		this->w *= s;
-		this->x *= s;
-		this->y *= s;
-		this->z *= s;
+		this->element[0] *= s;
+		this->element[1] *= s;
+		this->element[2] *= s;
+		this->element[3] *= s;
 
 		return (*this);
 	}
@@ -660,20 +1623,20 @@ namespace idaem
 	{
 		assert(s != 0.0f);
 
-		this->w /= s;
-		this->x /= s;
-		this->y /= s;
-		this->z /= s;
+		this->element[0] /= s;
+		this->element[1] /= s;
+		this->element[2] /= s;
+		this->element[3] /= s;
 
 		return (*this);
 	}
 
 	CQuaternion& CQuaternion::operator=(const CQuaternion& q)
 	{
-		this->w = q.element[0];
-		this->x = q.element[1];
-		this->y = q.element[2];
-		this->z = q.element[3];
+		this->element[0] = q.element[0];
+		this->element[1] = q.element[1];
+		this->element[2] = q.element[2];
+		this->element[3] = q.element[3];
 
 		return (*this);
 	}
@@ -694,10 +1657,10 @@ namespace idaem
 
 	CQuaternion& CQuaternion::operator+=(const CQuaternion& q)
 	{
-		this->w += q.element[0];
-		this->x += q.element[1];
-		this->y += q.element[2];
-		this->z += q.element[3];
+		this->element[0] += q.element[0];
+		this->element[1] += q.element[1];
+		this->element[2] += q.element[2];
+		this->element[3] += q.element[3];
 
 		return (*this);
 	}
@@ -707,20 +1670,20 @@ namespace idaem
 		CQuaternion const p(*this);
 		CQuaternion const q1(q);
 
-		this->w = p.element[0] * q1.element[0] - p.element[1] * q1.element[1] - p.element[2] * q1.element[2] - p.element[3] * q1.element[3];
-		this->x = p.element[0] * q1.element[1] + p.element[1] * q1.element[0] + p.element[2] * q1.element[3] - p.element[3] * q1.element[2];
-		this->y = p.element[0] * q1.element[2] + p.element[2] * q1.element[0] + p.element[3] * q1.element[1] - p.element[1] * q1.element[3];
-		this->z = p.element[0] * q1.element[3] + p.element[3] * q1.element[0] + p.element[1] * q1.element[2] - p.element[2] * q1.element[1];
+		this->element[0] = p.element[0] * q1.element[0] - p.element[1] * q1.element[1] - p.element[2] * q1.element[2] - p.element[3] * q1.element[3];
+		this->element[1] = p.element[0] * q1.element[1] + p.element[1] * q1.element[0] + p.element[2] * q1.element[3] - p.element[3] * q1.element[2];
+		this->element[2] = p.element[0] * q1.element[2] + p.element[2] * q1.element[0] + p.element[3] * q1.element[1] - p.element[1] * q1.element[3];
+		this->element[3] = p.element[0] * q1.element[3] + p.element[3] * q1.element[0] + p.element[1] * q1.element[2] - p.element[2] * q1.element[1];
 
 		return (*this);
 	}
 
 	CQuaternion& CQuaternion::operator*=(const float& s)
 	{
-		this->w *= s;
-		this->x *= s;
-		this->y *= s;
-		this->z *= s;
+		this->element[0] *= s;
+		this->element[1] *= s;
+		this->element[2] *= s;
+		this->element[3] *= s;
 
 		return (*this);
 	}
@@ -729,10 +1692,10 @@ namespace idaem
 	{
 		assert(s != 0.0f);
 
-		this->w /= s;
-		this->x /= s;
-		this->y /= s;
-		this->z /= s;
+		this->element[0] /= s;
+		this->element[1] /= s;
+		this->element[2] /= s;
+		this->element[3] /= s;
 
 		return (*this);
 	}
@@ -1033,6 +1996,114 @@ namespace idaem
 		return (*this);
 	}
 
+	CVector2 LessThan(const CVector2& leftVector, const CVector2& rightVector)
+	{
+		return CVector2(leftVector.element[0] < rightVector.element[0],
+						leftVector.element[1] < rightVector.element[1]);
+	}
+
+	CVector2 LessThan(const float& scalar, const CVector2& vector)
+	{
+		return CVector2(scalar < vector.element[0],
+						scalar < vector.element[1]);
+	}
+
+	CVector2 LessThan(const CVector2& vector, const float& scalar)
+	{
+		return CVector2(vector.element[0] < scalar,
+						vector.element[1] < scalar);
+	}
+
+	CVector2 LessThanEqual(const CVector2& leftVector, const CVector2& rightVector)
+	{
+		return CVector2(leftVector.element[0] <= rightVector.element[0],
+						leftVector.element[1] <= rightVector.element[1]);
+	}
+
+	CVector2 LessThanEqual(const float& scalar, const CVector2& vector)
+	{
+		return CVector2(scalar <= vector.element[0],
+						scalar <= vector.element[1]);
+	}
+
+	CVector2 LessThanEqual(const CVector2& vector, const float& scalar)
+	{
+		return CVector2(vector.element[0] <= scalar,
+						vector.element[1] <= scalar);
+	}
+
+	CVector2 GreaterThan(const CVector2& leftVector, const CVector2& rightVector)
+	{
+		return CVector2(leftVector.element[0] > rightVector.element[0],
+						leftVector.element[1] > rightVector.element[1]);
+	}
+
+	CVector2 GreaterThan(const float& scalar, const CVector2& vector)
+	{
+		return CVector2(scalar > vector.element[0],
+						scalar > vector.element[1]);
+	}
+
+	CVector2 GreaterThan(const CVector2& vector, const float& scalar)
+	{
+		return CVector2(vector.element[0] > scalar,
+						vector.element[1] > scalar);
+	}
+
+	CVector2 GreaterThanEqual(const CVector2& leftVector, const CVector2& rightVector)
+	{
+		return CVector2(leftVector.element[0] >= rightVector.element[0],
+						leftVector.element[1] >= rightVector.element[1]);
+	}
+
+	CVector2 GreaterThanEqual(const float& scalar, const CVector2& vector)
+	{
+		return CVector2(scalar >= vector.element[0],
+						scalar >= vector.element[1]);
+	}
+
+	CVector2 GreaterThanEqual(const CVector2& vector, const float& scalar)
+	{
+		return CVector2(vector.element[0] >= scalar,
+						vector.element[1] >= scalar);
+	}
+
+	bool Equal(const CVector2& leftVector, const CVector2& rightVector)
+	{
+		return (leftVector.element[0] == rightVector.element[0]) &&
+			   (leftVector.element[1] == rightVector.element[1]);
+	}
+
+	bool Equal(const float& scalar, const CVector2& vector)
+	{
+		return (scalar == vector.element[0]) &&
+			   (scalar == vector.element[1]);
+	}
+
+	bool Equal(const CVector2& vector, const float& scalar)
+	{
+		return (vector.element[0] == scalar) &&
+			   (vector.element[1] == scalar);
+	}
+
+	bool NotEqual(const CVector2& leftVector, const CVector2& rightVector)
+	{
+		return (leftVector.element[0] != rightVector.element[0]) ||
+			   (leftVector.element[1] != rightVector.element[1]);
+	}
+
+	bool NotEqual(const float& scalar, const CVector2& vector)
+	{
+		return (scalar != vector.element[0]) ||
+			   (scalar != vector.element[1]);
+	}
+
+	bool NotEqual(const CVector2& vector, const float& scalar)
+	{
+		return (vector.element[0] != scalar) ||
+			   (vector.element[1] != scalar);
+	}
+
 	CVector2 operator+(const CVector2& v)
 	{
 		return v;
@@ -1127,16 +2198,112 @@ namespace idaem
 						v1.element[1] / v2.element[1]);
 	}
 
+	CVector2 operator<(const CVector2& leftVector, const CVector2& rightVector)
+	{
+		return CVector2(leftVector.element[0] < rightVector.element[0],
+						leftVector.element[1] < rightVector.element[1]);
+	}
+
+	CVector2 operator<(const float& scalar, const CVector2& vector)
+	{
+		return CVector2(scalar < vector.element[0],
+						scalar < vector.element[1]);
+	}
+
+	CVector2 operator<(const CVector2& vector, const float& scalar)
+	{
+		return CVector2(vector.element[0] < scalar,
+						vector.element[1] < scalar);
+	}
+
+	CVector2 operator<=(const CVector2& leftVector, const CVector2& rightVector)
+	{
+		return CVector2(leftVector.element[0] <= rightVector.element[0],
+						leftVector.element[1] <= rightVector.element[1]);
+	}
+
+	CVector2 operator<=(const float& scalar, const CVector2& vector)
+	{
+		return CVector2(scalar <= vector.element[0],
+						scalar <= vector.element[1]);
+	}
+
+	CVector2 operator<=(const CVector2& vector, const float& scalar)
+	{
+		return CVector2(vector.element[0] <= scalar,
+						vector.element[1] <= scalar);
+	}
+
+	CVector2 operator>(const CVector2& leftVector, const CVector2& rightVector)
+	{
+		return CVector2(leftVector.element[0] > rightVector.element[0],
+						leftVector.element[1] > rightVector.element[1]);
+	}
+
+	CVector2 operator>(const float& scalar, const CVector2& vector)
+	{
+		return CVector2(scalar > vector.element[0],
+						scalar > vector.element[1]);
+	}
+
+	CVector2 operator>(const CVector2& vector, const float& scalar)
+	{
+		return CVector2(vector.element[0] > scalar,
+						vector.element[1] > scalar);
+	}
+
+	CVector2 operator>=(const CVector2& leftVector, const CVector2& rightVector)
+	{
+		return CVector2(leftVector.element[0] >= rightVector.element[0],
+						leftVector.element[1] >= rightVector.element[1]);
+	}
+
+	CVector2 operator>=(const float& scalar, const CVector2& vector)
+	{
+		return CVector2(scalar >= vector.element[0],
+						scalar >= vector.element[1]);
+	}
+
+	CVector2 operator>=(const CVector2& vector, const float& scalar)
+	{
+		return CVector2(vector.element[0] >= scalar,
+						vector.element[1] >= scalar);
+	}
+
 	bool operator==(const CVector2& leftVector, const CVector2& rightVector)
 	{
 		return (leftVector.element[0] == rightVector.element[0]) &&
 			   (leftVector.element[1] == rightVector.element[1]);
 	}
 
+	bool operator==(const float& scalar, const CVector2& vector)
+	{
+		return (scalar == vector.element[0]) &&
+			   (scalar == vector.element[1]);
+	}
+
+	bool operator==(const CVector2& vector, const float& scalar)
+	{
+		return (vector.element[0] == scalar) &&
+			   (vector.element[1] == scalar);
+	}
+
 	bool operator!=(const CVector2& leftVector, const CVector2& rightVector)
 	{
 		return (leftVector.element[0] != rightVector.element[0]) ||
 			   (leftVector.element[1] != rightVector.element[1]);
+	}
+
+	bool operator!=(const float& scalar, const CVector2& vector)
+	{
+		return (scalar != vector.element[0]) ||
+			   (scalar != vector.element[1]);
+	}
+
+	bool operator!=(const CVector2& vector, const float& scalar)
+	{
+		return (vector.element[0] != scalar) ||
+			   (vector.element[1] != scalar);
 	}
 
 	std::ostream& operator<<(std::ostream& stream, const CVector2& v)
@@ -1376,6 +2543,132 @@ namespace idaem
 		return (*this);
 	}
 
+	CVector3 LessThan(const CVector3& leftVector, const CVector3& rightVector)
+	{
+		return CVector3(leftVector.element[0] < rightVector.element[0],
+						leftVector.element[1] < rightVector.element[1],
+						leftVector.element[2] < rightVector.element[2]);
+	}
+
+	CVector3 LessThan(const float& scalar, const CVector3& vector)
+	{
+		return CVector3(scalar < vector.element[0],
+						scalar < vector.element[1],
+						scalar < vector.element[2]);
+	}
+
+	CVector3 LessThan(const CVector3& vector, const float& scalar)
+	{
+		return CVector3(vector.element[0] < scalar,
+						vector.element[1] < scalar,
+						vector.element[2] < scalar);
+	}
+
+	CVector3 LessThanEqual(const CVector3& leftVector, const CVector3& rightVector)
+	{
+		return CVector3(leftVector.element[0] <= rightVector.element[0],
+						leftVector.element[1] <= rightVector.element[1],
+						leftVector.element[2] <= rightVector.element[2]);
+	}
+
+	CVector3 LessThanEqual(const float& scalar, const CVector3& vector)
+	{
+		return CVector3(scalar <= vector.element[0],
+						scalar <= vector.element[1],
+						scalar <= vector.element[2]);
+	}
+
+	CVector3 LessThanEqual(const CVector3& vector, const float& scalar)
+	{
+		return CVector3(vector.element[0] <= scalar,
+						vector.element[1] <= scalar,
+						vector.element[2] <= scalar);
+	}
+
+	CVector3 GreaterThan(const CVector3& leftVector, const CVector3& rightVector)
+	{
+		return CVector3(leftVector.element[0] > rightVector.element[0],
+						leftVector.element[1] > rightVector.element[1],
+						leftVector.element[2] > rightVector.element[2]);
+	}
+
+	CVector3 GreaterThan(const float& scalar, const CVector3& vector)
+	{
+		return CVector3(scalar > vector.element[0],
+						scalar > vector.element[1],
+						scalar > vector.element[2]);
+	}
+
+	CVector3 GreaterThan(const CVector3& vector, const float& scalar)
+	{
+		return CVector3(vector.element[0] > scalar,
+						vector.element[1] > scalar,
+						vector.element[2] > scalar);
+	}
+
+	CVector3 GreaterThanEqual(const CVector3& leftVector, const CVector3& rightVector)
+	{
+		return CVector3(leftVector.element[0] >= rightVector.element[0],
+						leftVector.element[1] >= rightVector.element[1],
+						leftVector.element[2] >= rightVector.element[2]);
+	}
+
+	CVector3 GreaterThanEqual(const float& scalar, const CVector3& vector)
+	{
+		return CVector3(scalar >= vector.element[0],
+						scalar >= vector.element[1],
+						scalar >= vector.element[2]);
+	}
+
+	CVector3 GreaterThanEqual(const CVector3& vector, const float& scalar)
+	{
+		return CVector3(vector.element[0] >= scalar,
+						vector.element[1] >= scalar,
+						vector.element[2] >= scalar);
+	}
+
+	bool Equal(const CVector3& leftVector, const CVector3& rightVector)
+	{
+		return (leftVector.element[0] == rightVector.element[0]) &&
+			   (leftVector.element[1] == rightVector.element[1]) &&
+			   (leftVector.element[2] == rightVector.element[2]);
+	}
+
+	bool Equal(const float& scalar, const CVector3& vector)
+	{
+		return (scalar == vector.element[0]) &&
+			   (scalar == vector.element[1]) &&
+			   (scalar == vector.element[2]);
+	}
+
+	bool Equal(const CVector3& vector, const float& scalar)
+	{
+		return (vector.element[0] == scalar) &&
+			   (vector.element[1] == scalar) &&
+			   (vector.element[1] == scalar);
+	}
+
+	bool NotEqual(const CVector3& leftVector, const CVector3& rightVector)
+	{
+		return (leftVector.element[0] != rightVector.element[0]) ||
+			   (leftVector.element[1] != rightVector.element[1]) ||
+			   (leftVector.element[2] != rightVector.element[2]);
+	}
+
+	bool NotEqual(const float& scalar, const CVector3& vector)
+	{
+		return (scalar != vector.element[0]) ||
+			   (scalar != vector.element[1]) ||
+			   (scalar != vector.element[2]);
+	}
+
+	bool NotEqual(const CVector3& vector, const float& scalar)
+	{
+		return (vector.element[0] != scalar) ||
+			   (vector.element[1] != scalar) ||
+			   (vector.element[1] != scalar);
+	}
+
 	CVector3 operator+(const CVector3& v)
 	{
 		return v;
@@ -1483,6 +2776,90 @@ namespace idaem
 						v1.element[2] / v2.element[2]);
 	}
 
+	CVector3 operator<(const CVector3& leftVector, const CVector3& rightVector)
+	{
+		return CVector3(leftVector.element[0] < rightVector.element[0],
+						leftVector.element[1] < rightVector.element[1],
+						leftVector.element[2] < rightVector.element[2]);
+	}
+
+	CVector3 operator<(const float& scalar, const CVector3& vector)
+	{
+		return CVector3(scalar < vector.element[0],
+						scalar < vector.element[1],
+						scalar < vector.element[2]);
+	}
+
+	CVector3 operator<(const CVector3& vector, const float& scalar)
+	{
+		return CVector3(vector.element[0] < scalar,
+						vector.element[1] < scalar,
+						vector.element[2] < scalar);
+	}
+
+	CVector3 operator<=(const CVector3& leftVector, const CVector3& rightVector)
+	{
+		return CVector3(leftVector.element[0] <= rightVector.element[0],
+						leftVector.element[1] <= rightVector.element[1],
+						leftVector.element[2] <= rightVector.element[2]);
+	}
+
+	CVector3 operator<=(const float& scalar, const CVector3& vector)
+	{
+		return CVector3(scalar <= vector.element[0],
+						scalar <= vector.element[1],
+						scalar <= vector.element[2]);
+	}
+
+	CVector3 operator<=(const CVector3& vector, const float& scalar)
+	{
+		return CVector3(vector.element[0] <= scalar,
+						vector.element[1] <= scalar,
+						vector.element[2] <= scalar);
+	}
+
+	CVector3 operator>(const CVector3& leftVector, const CVector3& rightVector)
+	{
+		return CVector3(leftVector.element[0] > rightVector.element[0],
+						leftVector.element[1] > rightVector.element[1],
+						leftVector.element[2] > rightVector.element[2]);
+	}
+
+	CVector3 operator>(const float& scalar, const CVector3& vector)
+	{
+		return CVector3(scalar > vector.element[0],
+						scalar > vector.element[1],
+						scalar > vector.element[2]);
+	}
+
+	CVector3 operator>(const CVector3& vector, const float& scalar)
+	{
+		return CVector3(vector.element[0] > scalar,
+						vector.element[1] > scalar,
+						vector.element[2] > scalar);
+	}
+
+	CVector3 operator>=(const CVector3& leftVector, const CVector3& rightVector)
+	{
+		return CVector3(leftVector.element[0] >= rightVector.element[0],
+						leftVector.element[1] >= rightVector.element[1],
+						leftVector.element[2] >= rightVector.element[2]);
+	}
+
+	CVector3 operator>=(const float& scalar, const CVector3& vector)
+	{
+		return CVector3(scalar >= vector.element[0],
+						scalar >= vector.element[1],
+						scalar >= vector.element[2]);
+	}
+
+	CVector3 operator>=(const CVector3& vector, const float& scalar)
+	{
+		return CVector3(vector.element[0] >= scalar,
+						vector.element[1] >= scalar,
+						vector.element[2] >= scalar);
+	}
+
 	bool operator==(const CVector3& leftVector, const CVector3& rightVector)
 	{
 		return (leftVector.element[0] == rightVector.element[0]) &&
@@ -1490,11 +2867,39 @@ namespace idaem
 			   (leftVector.element[2] == rightVector.element[2]);
 	}
 
+	bool operator==(const float& scalar, const CVector3& vector)
+	{
+		return (scalar == vector.element[0]) &&
+			   (scalar == vector.element[1]) &&
+			   (scalar == vector.element[2]);
+	}
+
+	bool operator==(const CVector3& vector, const float& scalar)
+	{
+		return (vector.element[0] == scalar) &&
+			   (vector.element[1] == scalar) &&
+			   (vector.element[2] == scalar);
+	}
+
 	bool operator!=(const CVector3& leftVector, const CVector3& rightVector)
 	{
 		return (leftVector.element[0] != rightVector.element[0]) ||
 			   (leftVector.element[1] != rightVector.element[1]) ||
 			   (leftVector.element[2] != rightVector.element[2]);
+	}
+
+	bool operator!=(const float& scalar, const CVector3& vector)
+	{
+		return (scalar != vector.element[0]) ||
+			   (scalar != vector.element[1]) ||
+			   (scalar != vector.element[2]);
+	}
+
+	bool operator!=(const CVector3& vector, const float& scalar)
+	{
+		return (vector.element[0] != scalar) ||
+			   (vector.element[1] != scalar) ||
+			   (vector.element[2] != scalar);
 	}
 
 	std::ostream& operator<<(std::ostream& stream, const CVector3& v)
@@ -1762,6 +3167,150 @@ namespace idaem
 		return (*this);
 	}
 
+	CVector4 LessThan(const CVector4& leftVector, const CVector4& rightVector)
+	{
+		return CVector4(leftVector.element[0] < rightVector.element[0],
+						leftVector.element[1] < rightVector.element[1],
+						leftVector.element[2] < rightVector.element[2],
+						leftVector.element[3] < rightVector.element[3]);
+	}
+
+	CVector4 LessThan(const float& scalar, const CVector4& vector)
+	{
+		return CVector4(scalar < vector.element[0],
+						scalar < vector.element[1],
+						scalar < vector.element[2],
+						scalar < vector.element[3]);
+	}
+
+	CVector4 LessThan(const CVector4& vector, const float& scalar)
+	{
+		return CVector4(vector.element[0] < scalar,
+						vector.element[1] < scalar,
+						vector.element[2] < scalar,
+						vector.element[3] < scalar);
+	}
+
+	CVector4 LessThanEqual(const CVector4& leftVector, const CVector4& rightVector)
+	{
+		return CVector4(leftVector.element[0] <= rightVector.element[0],
+						leftVector.element[1] <= rightVector.element[1],
+						leftVector.element[2] <= rightVector.element[2],
+						leftVector.element[3] <= rightVector.element[3]);
+	}
+
+	CVector4 LessThanEqual(const float& scalar, const CVector4& vector)
+	{
+		return CVector4(scalar <= vector.element[0],
+						scalar <= vector.element[1],
+						scalar <= vector.element[2],
+						scalar <= vector.element[3]);
+	}
+
+	CVector4 LessThanEqual(const CVector4& vector, const float& scalar)
+	{
+		return CVector4(vector.element[0] <= scalar,
+						vector.element[1] <= scalar,
+						vector.element[2] <= scalar,
+						vector.element[3] <= scalar);
+	}
+
+	CVector4 GreaterThan(const CVector4& leftVector, const CVector4& rightVector)
+	{
+		return CVector4(leftVector.element[0] > rightVector.element[0],
+						leftVector.element[1] > rightVector.element[1],
+						leftVector.element[2] > rightVector.element[2],
+						leftVector.element[3] > rightVector.element[3]);
+	}
+
+	CVector4 GreaterThan(const float& scalar, const CVector4& vector)
+	{
+		return CVector4(scalar > vector.element[0],
+						scalar > vector.element[1],
+						scalar > vector.element[2],
+						scalar > vector.element[3]);
+	}
+
+	CVector4 GreaterThan(const CVector4& vector, const float& scalar)
+	{
+		return CVector4(vector.element[0] > scalar,
+						vector.element[1] > scalar,
+						vector.element[2] > scalar,
+						vector.element[3] > scalar);
+	}
+
+	CVector4 GreaterThanEqual(const CVector4& leftVector, const CVector4& rightVector)
+	{
+		return CVector4(leftVector.element[0] >= rightVector.element[0],
+						leftVector.element[1] >= rightVector.element[1],
+						leftVector.element[2] >= rightVector.element[2],
+						leftVector.element[3] >= rightVector.element[3]);
+	}
+
+	CVector4 GreaterThanEqual(const float& scalar, const CVector4& vector)
+	{
+		return CVector4(scalar >= vector.element[0],
+						scalar >= vector.element[1],
+						scalar >= vector.element[2],
+						scalar >= vector.element[3]);
+	}
+
+	CVector4 GreaterThanEqual(const CVector4& vector, const float& scalar)
+	{
+		return CVector4(vector.element[0] >= scalar,
+						vector.element[1] >= scalar,
+						vector.element[2] >= scalar,
+						vector.element[3] >= scalar);
+	}
+
+	bool Equal(const CVector4& leftVector, const CVector4& rightVector)
+	{
+		return (leftVector.element[0] == rightVector.element[0]) &&
+			   (leftVector.element[1] == rightVector.element[1]) &&
+			   (leftVector.element[2] == rightVector.element[2]) &&
+			   (leftVector.element[3] == rightVector.element[3]);
+	}
+
+	bool Equal(const float& scalar, const CVector4& vector)
+	{
+		return (scalar == vector.element[0]) &&
+			   (scalar == vector.element[1]) &&
+			   (scalar == vector.element[2]) &&
+			   (scalar == vector.element[3]);
+	}
+
+	bool Equal(const CVector4& vector, const float& scalar)
+	{
+		return (vector.element[0] == scalar) &&
+			   (vector.element[1] == scalar) &&
+			   (vector.element[2] == scalar) &&
+			   (vector.element[3] == scalar);
+	}
+
+	bool NotEqual(const CVector4& leftVector, const CVector4& rightVector)
+	{
+		return (leftVector.element[0] != rightVector.element[0]) ||
+			   (leftVector.element[1] != rightVector.element[1]) ||
+			   (leftVector.element[2] != rightVector.element[2]) ||
+			   (leftVector.element[3] != rightVector.element[3]);
+	}
+
+	bool NotEqual(const float& scalar, const CVector4& vector)
+	{
+		return (scalar != vector.element[0]) ||
+			   (scalar != vector.element[1]) ||
+			   (scalar != vector.element[2]) ||
+			   (scalar != vector.element[3]);
+	}
+
+	bool NotEqual(const CVector4& vector, const float& scalar)
+	{
+		return (vector.element[0] != scalar) ||
+			   (vector.element[1] != scalar) ||
+			   (vector.element[2] != scalar) ||
+			   (vector.element[3] != scalar);
+	}
+
 	CVector4 operator+(const CVector4& v)
 	{
 		return v;
@@ -1882,6 +3431,102 @@ namespace idaem
 						v1.element[3] / v2.element[3]);
 	}
 
+	CVector4 operator<(const CVector4& leftVector, const CVector4& rightVector)
+	{
+		return CVector4(leftVector.element[0] < rightVector.element[0],
+						leftVector.element[1] < rightVector.element[1],
+						leftVector.element[2] < rightVector.element[2],
+						leftVector.element[3] < rightVector.element[3]);
+	}
+
+	CVector4 operator<(const float& scalar, const CVector4& vector)
+	{
+		return CVector4(scalar < vector.element[0],
+						scalar < vector.element[1],
+						scalar < vector.element[2],
+						scalar < vector.element[3]);
+	}
+
+	CVector4 operator<(const CVector4& vector, const float& scalar)
+	{
+		return CVector4(vector.element[0] < scalar,
+						vector.element[1] < scalar,
+						vector.element[2] < scalar,
+						vector.element[3] < scalar);
+	}
+
+	CVector4 operator<=(const CVector4& leftVector, const CVector4& rightVector)
+	{
+		return CVector4(leftVector.element[0] <= rightVector.element[0],
+						leftVector.element[1] <= rightVector.element[1],
+						leftVector.element[2] <= rightVector.element[2],
+						leftVector.element[3] <= rightVector.element[3]);
+	}
+
+	CVector4 operator<=(const float& scalar, const CVector4& vector)
+	{
+		return CVector4(scalar <= vector.element[0],
+						scalar <= vector.element[1],
+						scalar <= vector.element[2],
+						scalar <= vector.element[3]);
+	}
+
+	CVector4 operator<=(const CVector4& vector, const float& scalar)
+	{
+		return CVector4(vector.element[0] <= scalar,
+						vector.element[1] <= scalar,
+						vector.element[2] <= scalar,
+						vector.element[3] <= scalar);
+	}
+
+	CVector4 operator>(const CVector4& leftVector, const CVector4& rightVector)
+	{
+		return CVector4(leftVector.element[0] > rightVector.element[0],
+						leftVector.element[1] > rightVector.element[1],
+						leftVector.element[2] > rightVector.element[2],
+						leftVector.element[3] > rightVector.element[3]);
+	}
+
+	CVector4 operator>(const float& scalar, const CVector4& vector)
+	{
+		return CVector4(scalar > vector.element[0],
+						scalar > vector.element[1],
+						scalar > vector.element[2],
+						scalar > vector.element[3]);
+	}
+
+	CVector4 operator>(const CVector4& vector, const float& scalar)
+	{
+		return CVector4(vector.element[0] > scalar,
+						vector.element[1] > scalar,
+						vector.element[2] > scalar,
+						vector.element[3] > scalar);
+	}
+
+	CVector4 operator>=(const CVector4& leftVector, const CVector4& rightVector)
+	{
+		return CVector4(leftVector.element[0] >= rightVector.element[0],
+						leftVector.element[1] >= rightVector.element[1],
+						leftVector.element[2] >= rightVector.element[2],
+						leftVector.element[3] >= rightVector.element[3]);
+	}
+
+	CVector4 operator>=(const float& scalar, const CVector4& vector)
+	{
+		return CVector4(scalar >= vector.element[0],
+						scalar >= vector.element[1],
+						scalar >= vector.element[2],
+						scalar >= vector.element[3]);
+	}
+
+	CVector4 operator>=(const CVector4& vector, const float& scalar)
+	{
+		return CVector4(vector.element[0] >= scalar,
+						vector.element[1] >= scalar,
+						vector.element[2] >= scalar,
+						vector.element[3] >= scalar);
+	}
+
 	bool operator==(const CVector4& leftVector, const CVector4& rightVector)
 	{
 		return (leftVector.element[0] == rightVector.element[0]) &&
@@ -1890,12 +3535,44 @@ namespace idaem
 			   (leftVector.element[3] == rightVector.element[3]);
 	}
 
+	bool operator==(const float& scalar, const CVector4& vector)
+	{
+		return (scalar == vector.element[0]) &&
+			   (scalar == vector.element[1]) &&
+			   (scalar == vector.element[2]) &&
+			   (scalar == vector.element[3]);
+	}
+
+	bool operator==(const CVector4& vector, const float& scalar)
+	{
+		return (vector.element[0] == scalar) &&
+			   (vector.element[1] == scalar) &&
+			   (vector.element[2] == scalar) &&
+			   (vector.element[3] == scalar);
+	}
+
 	bool operator!=(const CVector4& leftVector, const CVector4& rightVector)
 	{
 		return (leftVector.element[0] != rightVector.element[0]) ||
 			   (leftVector.element[1] != rightVector.element[1]) ||
 			   (leftVector.element[2] != rightVector.element[2]) ||
 			   (leftVector.element[3] != rightVector.element[3]);
+	}
+
+	bool operator!=(const float& scalar, const CVector4& vector)
+	{
+		return (scalar != vector.element[0]) ||
+			   (scalar != vector.element[1]) ||
+			   (scalar != vector.element[2]) ||
+			   (scalar != vector.element[3]);
+	}
+
+	bool operator!=(const CVector4& vector, const float& scalar)
+	{
+		return (vector.element[0] != scalar) ||
+			   (vector.element[1] != scalar) ||
+			   (vector.element[2] != scalar) ||
+			   (vector.element[3] != scalar);
 	}
 
 	std::ostream& operator<<(std::ostream& stream, const CVector4& v)
@@ -3119,4 +4796,4 @@ namespace idaem
 	}
 	/*----------------------------------------Matrix4----------------------------------------*/
 	/*------------------------------------------End------------------------------------------*/
-}
+} // namespace idaem
