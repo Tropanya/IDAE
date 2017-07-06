@@ -1,5 +1,5 @@
-#ifndef IDAEMATH_H
-#define IDAEMATH_H
+#ifndef MATH_H
+#define MATH_H
 
 #include <cassert>
 #include <limits>
@@ -981,4 +981,4 @@ namespace idaem
 
 } // namespace idaem
 
-#endif // IDAEMATH_H
+#endif // MATH_H

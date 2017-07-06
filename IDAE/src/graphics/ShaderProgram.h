@@ -5,7 +5,7 @@
 #include <GLEW/glew.h>
 
 #include "../utils/FileUtils.h"
-#include "../math/IDAEMath.h"
+#include "../math/Math.h"
 
 /*
 TODO:
@@ -48,4 +48,4 @@ namespace idaeg
 	};
 }// namespace idaeg
 
-#endif
+#endif // SHADER_PROGRAM_H

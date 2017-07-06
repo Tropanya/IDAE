@@ -1,4 +1,4 @@
-#include "IDAEMath.h"
+#include "Math.h"
 
 namespace idaem
 {
@@ -1651,11 +1651,11 @@ namespace idaem
 		
 		const float tanHalfFov = tan(ToRadians(0.5f * fov));
 
-		result._1D[0] = 1.0f / (aspect * tanHalfFov);
-		result._1D[5] = 1.0f / (tanHalfFov);
-		result._1D[10] = (near + far) / (far - near);
-		result._1D[11] = 1.0f;
-		result._1D[14] = (2.0f * near * far) / (near - far);
+		result._1D[0]  =  1.0f / (aspect * tanHalfFov);
+		result._1D[5]  =  1.0f / (tanHalfFov);
+		result._1D[10] = -(near + far) / (far - near);
+		result._1D[11] = -1.0f;
+		result._1D[14] =  (2.0f * near * far) / (near - far);
 
 		return result;
 	}

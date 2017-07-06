@@ -1,30 +1,15 @@
 #include "src/Display.h"
-#include "src/math/IDAEMath.h"
+#include "src/math/Math.h"
 #include "src/graphics/ShaderProgram.h"
+#include "src/graphics/buffers/Buffer.h"
+#include "src/graphics/buffers/IndexBuffer.h"
+#include "src/graphics/buffers/VertexArray.h"
 
 using namespace idaem;
 using namespace idaeg;
 using namespace std;
 
-//const char *vertexShaderSource = "#version 330 core\n"
-//"layout (location = 0) in vec3 aPos;\n"
-//"void main()\n"
-//"{\n"
-//"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-//"}\0";
-//const char *fragmentShaderSource = "#version 330 core\n"
-//"out vec4 FragColor;\n"
-//"void main()\n"
-//"{\n"
-//"   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-//"}\n\0";
-//
-//const char *fragmentShaderSource2 = "#version 330 core\n"
-//"out vec4 FragColor;\n"
-//"void main()\n"
-//"{\n"
-//"   FragColor = vec4(1.0f, 1.0f, 0.0f, 1.0f);\n"
-//"}\n\0";
+#define DRAW_ELEMENT 0
 
 /*
 TODO for engine:
@@ -43,7 +28,7 @@ network
 /*
 TODO for graphics:
 shaders,
-buffers,
+++ buffers,
 camera,
 textures,
 2Drender,
@@ -56,185 +41,119 @@ font
 int main()
 {
 	CDisplay* window = new CDisplay("Engine test", 800, 600);
-
-	/*vec3 v1(-0.5, -0.5, 0.5);
-	vec3 v2( 0.5, -0.5, 0.5);
-	vec3 v3(-0.5,  0.5, 0.5);
-	vec3 v4( 0.5,  0.5, 0.5);
-
-	vec3 z(0.0f);
-
-	z = Normalize(v1);
-	cout << z << endl;
-
-	vec3 n1 = Normal(v1, v2, v3);
-	vec3 n2 = Normal(v2, v1, v3);
-	vec3 n3 = Normal(v3, v1, v2);
-	vec3 n4 = Normal(v4, v2, v3);
-
-	cout << n1 << ", " << n2 << ", " << n3 << ", " << n4 << endl;*/
-
-	/*int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-	glCompileShader(vertexShader);
-
-	int success;
-	char infoLog[512];
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-	}
-
-	int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-	glCompileShader(fragmentShader);
-
-	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
-	}
-
-	int fragmentShader2 = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader2, 1, &fragmentShaderSource2, NULL);
-	glCompileShader(fragmentShader2);
-
-	glGetShaderiv(fragmentShader2, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		glGetShaderInfoLog(fragmentShader2, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
-	}
-
-	int shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
-
-	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-	if (!success) {
-		glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
-	}
-
-	int shaderProgram2 = glCreateProgram();
-	glAttachShader(shaderProgram2, vertexShader);
-	glAttachShader(shaderProgram2, fragmentShader2);
-	glLinkProgram(shaderProgram2);
-
-	glGetProgramiv(shaderProgram2, GL_LINK_STATUS, &success);
-	if (!success) {
-		glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
-	}
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
-	glDeleteShader(fragmentShader2);*/
-
+	//glViewport(0, 0, 800, 600);
+	
 	CShaderProgram* program = new CShaderProgram("res/test.vert", "res/test.frag");
 
-	CQuaternion q(AngleAxis(90.0f, CVector3(0.0f, 0.0f, 1.0f)));
+	mat4 model(1.0f);
+	mat4 view(1.0f);
+	mat4 projection;
+	mat4 ortho;
 
-	float a = Angle(q);
-
-	float b(ToDegrees(a));
-
-	float vertices1[] = {
-		 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
-		-0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
-		-0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 0.0f,
-		 0.5f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f
+#if DRAW_ELEMENT
+	float vertices[] = {
+		 0.5f,  0.5f, 0.0f,
+		 0.5f, -0.5f, 0.0f,
+		-0.5f, -0.5f, 0.0f,
+		-0.5f,  0.5f, 0.0f
 	};
 
 	unsigned int indices[] = {
 		0, 1, 3,
 		1, 2, 3
 	};
-	unsigned int VBO1, VAO1, EBO;
-	//unsigned int VBO2, VAO2/*, EBO*/;
 
-	glGenVertexArrays(1, &VAO1);
-	glGenBuffers(1, &VBO1);
-	glGenBuffers(1, &EBO);
+	CVertexArray VAO;
+	CBuffer* VBO = new CBuffer(vertices, 12, 3);
+	CIndexBuffer IBO(indices, 6);
 
-	glBindVertexArray(VAO1);
+	VAO.AddBuffer(VBO, 0);
+#else
+	GLfloat vertices[] = {
+		-0.5f, -0.5f, -0.5f,
+		 0.5f, -0.5f, -0.5f,
+		 0.5f,  0.5f, -0.5f,
+		 0.5f,  0.5f, -0.5f,
+		-0.5f,  0.5f, -0.5f,
+		-0.5f, -0.5f, -0.5f,
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO1);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices1), vertices1, GL_STATIC_DRAW);
+		-0.5f, -0.5f,  0.5f,
+		 0.5f, -0.5f,  0.5f,
+		 0.5f,  0.5f,  0.5f,
+		 0.5f,  0.5f,  0.5f,
+		-0.5f,  0.5f,  0.5f,
+		-0.5f, -0.5f,  0.5f,
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+		-0.5f,  0.5f,  0.5f,
+		-0.5f,  0.5f, -0.5f,
+		-0.5f, -0.5f, -0.5f,
+		-0.5f, -0.5f, -0.5f,
+		-0.5f, -0.5f,  0.5f,
+		-0.5f,  0.5f,  0.5f,
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
+		 0.5f,  0.5f,  0.5f,
+		 0.5f,  0.5f, -0.5f,
+		 0.5f, -0.5f, -0.5f,
+		 0.5f, -0.5f, -0.5f,
+		 0.5f, -0.5f,  0.5f,
+		 0.5f,  0.5f,  0.5f,
 
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3*sizeof(float)));
-	glEnableVertexAttribArray(1);
+		-0.5f, -0.5f, -0.5f,
+		 0.5f, -0.5f, -0.5f,
+		 0.5f, -0.5f,  0.5f,
+		 0.5f, -0.5f,  0.5f,
+		-0.5f, -0.5f,  0.5f,
+		-0.5f, -0.5f, -0.5f,
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
+		-0.5f,  0.5f, -0.5f,
+		 0.5f,  0.5f, -0.5f,
+		 0.5f,  0.5f,  0.5f,
+		 0.5f,  0.5f,  0.5f,
+		-0.5f,  0.5f,  0.5f,
+		-0.5f,  0.5f, -0.5f
+	};
 
-	mat4 ortho = idaem::Ortho(-2.0f, 2.0f, -2.0f, 2.0f);
-	mat4 persp = idaem::Perspective(45.0f, 4 / 3, -1.0f, 1.0f);
-	vec2 light = vec2(0.0f, 0.0f);
+	CVertexArray VAO;
+	CBuffer* VBO = new CBuffer(vertices, 108, 3);
 
-	program->Enable();
-	program->SetUniformMat4fv("pr_matrix", Rotate(ortho, 45.0f, vec3(0.0f, 0.0f, 1.0f)));
-	program->SetUniform2f("light_pos", light);
+	VAO.AddBuffer(VBO, 0);
+#endif // DRAW_ELEMENT
 
-	//glGenVertexArrays(1, &VAO2);
-	//glGenBuffers(1, &VBO2);
-
-	//glBindVertexArray(VAO2);
-
-	/*glBindBuffer(GL_ARRAY_BUFFER, VBO2);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices2), vertices2, GL_STATIC_DRAW);*/
-
-	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	//glEnableVertexAttribArray(0);
-
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);
-	//glBindVertexArray(0);
-
+	projection = Perspective(45.0f, 800.0f / 600.0f, 0.1f, 100.0f);
+	ortho = Ortho(-1.0f, 1.0f, -1.0f, 1.0f);
+	
 	while (window->Closed() == window->IsKeyPressed(GLFW_KEY_ESCAPE))
 	{
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
 		window->Clear();
+		program->Enable();
+#if DRAW_ELEMENT
+		program->SetUniformMat4fv("ml_matrix", Rotate(model, 45.0f, vec3(0.0f, 0.0f, 1.0f)));
+		program->SetUniformMat4fv("vw_matrix", view);
+		program->SetUniformMat4fv("pr_matrix", ortho);
 
-		GLfloat timeValue = (float)glfwGetTime();
-		GLfloat moved = (idaem::Sin(timeValue) / 2);
+		VAO.Bind();
+		IBO.Bind();
+		glDrawElements(GL_TRIANGLES, IBO.GetCount(), GL_UNSIGNED_INT, 0);
+		IBO.Unbind();
+		VAO.Unbind();
+#else
+		program->SetUniformMat4fv("ml_matrix", model * ToMat4(Rotate(quat(), (GLfloat)glfwGetTime() * 50.0f, vec3(0.5f, 1.0f, 0.0f))) /*Rotate(model, (GLfloat)glfwGetTime() * 50.0f, vec3(0.5f, 1.0f, 0.0f)*/);
+		program->SetUniformMat4fv("vw_matrix", Translate(view, vec3(0.0f, 0.0f, -3.0f)));
+		program->SetUniformMat4fv("pr_matrix", projection);
 
-		cout << moved << endl;
-
-		program->SetUniform1f("xOffset", moved);
-
-		//program->SetUniform4f("ourColor", vec4(0.0f, greenValue, 0.0f, 1.0f));
-		
-		//program->Enable();
-		//program->SetUniformMat4fv("pr_matrix", ortho);
-		//program->SetUniformMat4fv("ml_matrix", idaem::Translate(mat4(1.0f), vec3(4, 3, 0)));
-		glBindVertexArray(VAO1);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-		
-		//program->Enable();
-		//glBindVertexArray(VAO2);
-		//glDrawArrays(GL_TRIANGLES, 0, 3);
-		//glBindVertexArray(0);
+		VAO.Bind();
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		VAO.Unbind();
+#endif // DRAW_ELEMENT
 
 		window->Update();
 	}
 
-	glDeleteVertexArrays(1, &VAO1);
-	glDeleteBuffers(1, &VBO1);
-	//glDeleteVertexArrays(1, &VAO2);
-	//glDeleteBuffers(1, &VBO2);
-	//glDeleteBuffers(1, &EBO);
 	program->Disable();
 
+	delete program;
 	delete window;
 
 	return 0;

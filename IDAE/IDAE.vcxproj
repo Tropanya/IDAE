@@ -159,17 +159,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics\buffers\IndexBuffer.cpp" />
+    <ClCompile Include="src\graphics\buffers\Buffer.cpp" />
     <ClCompile Include="src\utils\FileUtils.cpp" />
     <ClCompile Include="src\graphics\ShaderProgram.cpp" />
     <ClCompile Include="src\Display.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\math\IDAEMath.cpp" />
+    <ClCompile Include="src\math\Math.cpp" />
+    <ClCompile Include="src\graphics\buffers\VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\graphics\buffers\IndexBuffer.h" />
+    <ClInclude Include="src\graphics\buffers\Buffer.h" />
     <ClInclude Include="src\utils\FileUtils.h" />
     <ClInclude Include="src\graphics\ShaderProgram.h" />
     <ClInclude Include="src\Display.h" />
-    <ClInclude Include="src\math\IDAEMath.h" />
+    <ClInclude Include="src\math\Math.h" />
+    <ClInclude Include="src\graphics\buffers\VertexArray.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\test.frag" />
