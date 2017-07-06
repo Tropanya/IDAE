@@ -136,9 +136,11 @@ int main()
 
 	CShaderProgram* program = new CShaderProgram("res/test.vert", "res/test.frag");
 
-	CQuaternion q(90.0f, 1.0f, 1.0f, 1.0f);
+	CQuaternion q(AngleAxis(90.0f, CVector3(0.0f, 0.0f, 1.0f)));
 
 	float a = Angle(q);
+
+	float b(ToDegrees(a));
 
 	float vertices1[] = {
 		 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,

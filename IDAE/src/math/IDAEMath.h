@@ -6,11 +6,6 @@
 #include <cmath>
 #include <iostream>
 
-/*
-TODO:
-quat functions(eulerAngles, roll, pitch, yaw, mat3_cast, mat4_cast, quat_cast3, quat_cast4, angle, axis, angleAxis)
-*/
-
 namespace idaem
 {
 	class CQuaternion;
@@ -169,12 +164,12 @@ namespace idaem
 	CVector4 InvSqrt(const CVector4& v);
 	/*---------------------------------------Functions---------------------------------------*/
 	/*-------------------------------------Trigonometric-------------------------------------*/
-	float ToRadians(const float& degrees);
+	float    ToRadians(const float& degrees);
 	CVector2 ToRadians(const CVector2& degrees);
 	CVector3 ToRadians(const CVector3& degrees);
 	CVector4 ToRadians(const CVector4& degrees);
 
-	float ToDegrees(const float& radians);
+	float    ToDegrees(const float& radians);
 	CVector2 ToDegrees(const CVector2& radians);
 	CVector3 ToDegrees(const CVector3& radians);
 	CVector4 ToDegrees(const CVector4& radians);
@@ -208,6 +203,10 @@ namespace idaem
 	CVector2 Atan(const CVector2& radians);
 	CVector3 Atan(const CVector3& radians);
 	CVector4 Atan(const CVector4& radians);
+	float    Atan(const float& y, const float& x);
+	CVector2 Atan(const CVector2& vY, const CVector2& vX);
+	CVector3 Atan(const CVector3& vY, const CVector3& vX);
+	CVector4 Atan(const CVector4& vY, const CVector4& vX);
 
 	float    Sinh(const float& radians);
 	CVector2 Sinh(const CVector2& radians);
@@ -253,13 +252,21 @@ namespace idaem
 	CQuaternion Lerp(const CQuaternion& q1, const CQuaternion& q2, const float& factor);
 	CQuaternion Slerp(const CQuaternion& q1, const CQuaternion& q2, const float& factor);
 
-	//float Roll(const CQuaternion& q);
-	//float Pitch(const CQuaternion& q);
+	float Roll(const CQuaternion& q);
+	float Pitch(const CQuaternion& q);
 	float Yaw(const CQuaternion& q);
-	float Angle(const CQuaternion& q);
 
-	//CVector3 EulerAngles(const CQuaternion& q);
+	CVector3 EulerAngles(const CQuaternion& q);
 	CQuaternion Rotate(const CQuaternion& q, const float& angle, const CVector3& v);
+
+	CMatrix3x3  ToMat3(const CQuaternion& q);
+	CMatrix4x4  ToMat4(const CQuaternion& q);
+	CQuaternion ToQuat(const CMatrix3x3& m);
+	CQuaternion ToQuat(const CMatrix4x4& m);
+
+	float Angle(const CQuaternion& q);
+	CVector3 Axis(const CQuaternion& q);
+	CQuaternion AngleAxis(const float& angle, const CVector3& axis);
 	/*---------------------------------------Functions---------------------------------------*/
 	/*----------------------------------------Vector2----------------------------------------*/
 	CVector2 Cross(const CVector2& v1, const CVector2& v2);
@@ -367,8 +374,8 @@ namespace idaem
 		CQuaternion(const float& w, const float& x, const float& y, const float& z);
 		CQuaternion(const CVector3& v1, const CVector3& v2);
 		CQuaternion(const CVector3& eulerAngle);
-		CQuaternion(const CMatrix3x3& m);//
-		CQuaternion(const CMatrix4x4& m);//
+		CQuaternion(const CMatrix3x3& m);
+		CQuaternion(const CMatrix4x4& m);
 		CQuaternion(const CQuaternion& q);
 
 		CQuaternion& Add(const CQuaternion& q);

@@ -703,6 +703,29 @@ namespace idaem
 						atan(radians.element[3]));
 	}
 
+	float Atan(const float& y, const float& x) { return atan2(y, x); }
+
+	CVector2 Atan(const CVector2& vY, const CVector2& vX)
+	{
+		return CVector2(atan2(vY.element[0], vX.element[0]),
+						atan2(vY.element[1], vX.element[1]));
+	}
+
+	CVector3 Atan(const CVector3& vY, const CVector3& vX)
+	{
+		return CVector3(atan2(vY.element[0], vX.element[0]),
+						atan2(vY.element[1], vX.element[1]),
+						atan2(vY.element[2], vX.element[2]));
+	}
+
+	CVector4 Atan(const CVector4& vY, const CVector4& vX)
+	{
+		return CVector4(atan2(vY.element[0], vX.element[0]),
+						atan2(vY.element[1], vX.element[1]),
+						atan2(vY.element[2], vX.element[2]),
+						atan2(vY.element[3], vX.element[3]));
+	}
+
 	float Sinh(const float& radians) { return sinh(radians); }
 
 	CVector2 Sinh(const CVector2& radians)
@@ -940,7 +963,7 @@ namespace idaem
 		}
 	}
 
-	/*float Roll(const CQuaternion& q)
+	float Roll(const CQuaternion& q)
 	{
 		return Atan(2.0f * (q.element[1] * q.element[2] + q.element[0] * q.element[3]),
 							q.element[0] * q.element[0] +
@@ -956,22 +979,17 @@ namespace idaem
 							q.element[1] * q.element[1] -
 							q.element[2] * q.element[2] +
 							q.element[3] * q.element[3]);
-	}*/
+	}
 
 	float Yaw(const CQuaternion& q)
 	{
 		return Asin(Clamp(-2.0f * (q.element[1] * q.element[3] - q.element[0] * q.element[2]), -1.0f, 1.0f));
 	}
 
-	float Angle(const CQuaternion& q)
-	{
-		return Acos(q.element[0]) * 2;
-	}
-
-	/*CVector3 EulerAngles(const CQuaternion& q)
+	CVector3 EulerAngles(const CQuaternion& q)
 	{
 		return CVector3(Pitch(q), Yaw(q), Roll(q));
-	}*/
+	}
 
 	CQuaternion Rotate(const CQuaternion& q, const float& angle, const CVector3& v)
 	{
@@ -992,6 +1010,137 @@ namespace idaem
 		const float s = Sin(angleRad * 0.5f);
 
 		return q * CQuaternion(Cos(angleRad * 0.5f), tmp.element[0] * s, tmp.element[1] * s, tmp.element[2] * s);
+	}
+
+	CMatrix3x3 ToMat3(const CQuaternion& q)
+	{
+		CMatrix3x3 result(1.0f);
+
+		float qxx(q.element[1] * q.element[1]);
+		float qyy(q.element[2] * q.element[2]);
+		float qzz(q.element[3] * q.element[3]);
+		float qxz(q.element[1] * q.element[3]);
+		float qxy(q.element[1] * q.element[2]);
+		float qyz(q.element[2] * q.element[3]);
+		float qwx(q.element[0] * q.element[1]);
+		float qwy(q.element[0] * q.element[2]);
+		float qwz(q.element[0] * q.element[3]);
+
+		result._1D[0] = 1.0f - 2.0f * (qyy + qzz);
+		result._1D[1] = 2.0f * (qxy + qwz);
+		result._1D[2] = 2.0f * (qxz - qwy);
+		
+		result._1D[3] = 2.0f * (qxy - qwz);
+		result._1D[4] = 1.0f - 2.0f * (qxx + qzz);
+		result._1D[5] = 2.0f * (qyz + qwx);
+		
+		result._1D[6] = 2.0f * (qxz + qwy);
+		result._1D[7] = 2.0f * (qyz - qwx);
+		result._1D[8] = 1.0f - 2.0f * (qxx + qyy);
+
+		return result;
+	}
+
+	CMatrix4x4 ToMat4(const CQuaternion& q)
+	{
+		return CMatrix4x4(ToMat3(q));
+	}
+
+	CQuaternion ToQuat(const CMatrix3x3& m)
+	{
+		float fourXSquaredMinus1 = m._1D[0] - m._1D[4] - m._1D[8];
+		float fourYSquaredMinus1 = m._1D[4] - m._1D[0] - m._1D[8];
+		float fourZSquaredMinus1 = m._1D[8] - m._1D[0] - m._1D[4];
+		float fourWSquaredMinus1 = m._1D[0] + m._1D[4] + m._1D[8];
+
+		int biggestIndex = 0;
+		float fourBiggestSquaredMinus1 = fourWSquaredMinus1;
+
+		if (fourXSquaredMinus1 > fourBiggestSquaredMinus1)
+		{
+			fourBiggestSquaredMinus1 = fourXSquaredMinus1;
+			biggestIndex = 1;
+		}
+
+		if (fourYSquaredMinus1 > fourBiggestSquaredMinus1)
+		{
+			fourBiggestSquaredMinus1 = fourYSquaredMinus1;
+			biggestIndex = 2;
+		}
+
+		if (fourZSquaredMinus1 > fourBiggestSquaredMinus1)
+		{
+			fourBiggestSquaredMinus1 = fourZSquaredMinus1;
+			biggestIndex = 3;
+		}
+
+		float biggestVal = Sqrt(fourBiggestSquaredMinus1 + 1.0f) * 0.5f;
+		float mult = 0.25f / biggestVal;
+
+		CQuaternion result;
+
+		switch (biggestIndex)
+		{
+		case 0:
+			result.element[0] = biggestVal;
+			result.element[1] = (m._1D[5] - m._1D[7]) * mult;
+			result.element[2] = (m._1D[6] - m._1D[2]) * mult;
+			result.element[3] = (m._1D[1] - m._1D[3]) * mult;
+			break;
+		case 1:
+			result.element[0] = (m._1D[5] - m._1D[7]) * mult;
+			result.element[1] = biggestVal;
+			result.element[2] = (m._1D[1] + m._1D[3]) * mult;
+			result.element[3] = (m._1D[6] + m._1D[2]) * mult;
+			break;
+		case 2:
+			result.element[0] = (m._1D[6] - m._1D[2]) * mult;
+			result.element[1] = (m._1D[1] + m._1D[3]) * mult;
+			result.element[2] = biggestVal;
+			result.element[3] = (m._1D[5] + m._1D[7]) * mult;
+			break;
+		case 3:
+			result.element[0] = (m._1D[1] - m._1D[3]) * mult;
+			result.element[1] = (m._1D[6] + m._1D[2]) * mult;
+			result.element[2] = (m._1D[5] + m._1D[7]) * mult;
+			result.element[3] = biggestVal;
+			break;
+		default:
+			assert(false);
+			break;
+		}
+
+		return result;
+	}
+
+	CQuaternion ToQuat(const CMatrix4x4& m)
+	{
+		return ToQuat(CMatrix3x3(m));
+	}
+
+	float Angle(const CQuaternion& q)
+	{
+		return Acos(q.element[0]) * 2.0f;
+	}
+
+	CVector3 Axis(const CQuaternion& q)
+	{
+		float tmp1 = 1.0f - q.element[0] * q.element[0];
+
+		if (tmp1 <= 0.0f)
+			return CVector3(0, 0, 1);
+
+		float tmp2 = 1.0f / Sqrt(tmp1);
+
+		return CVector3(q.element[1] * tmp2, q.element[2] * tmp2, q.element[3] * tmp2);
+	}
+
+	CQuaternion AngleAxis(const float& angle, const CVector3& axis)
+	{
+		const float angleRad = ToRadians(angle);
+		const float s = Sin(angleRad * 0.5f);
+
+		return CQuaternion(Cos(angleRad * 0.5f), axis.element[0] * s, axis.element[1] * s, axis.element[2] * s);
 	}
 	
 	CVector2 Cross(const CVector2& v1, const CVector2& v2)
@@ -1543,15 +1692,15 @@ namespace idaem
 	/*--------------------------------------Quaternions--------------------------------------*/
 	/*-----------------------------------------Start-----------------------------------------*/
 	CQuaternion::CQuaternion():
-		w(ToRadians(1.0f)), x(0.0f), y(0.0f), z(0.0f)
+		w(1.0f), x(0.0f), y(0.0f), z(0.0f)
 	{ }
 
 	CQuaternion::CQuaternion(const float& s, const CVector3& v) :
-		w(ToRadians(s)), x(v.x), y(v.y), z(v.z)
+		w(s), x(v.x), y(v.y), z(v.z)
 	{ }
 
 	CQuaternion::CQuaternion(const float& w, const float& x, const float& y, const float& z):
-		w(ToRadians(w)), x(x), y(y), z(z)
+		w(w), x(x), y(y), z(z)
 	{ }
 
 	CQuaternion::CQuaternion(const CVector3& v1, const CVector3& v2)
@@ -1576,14 +1725,16 @@ namespace idaem
 
 	CQuaternion::CQuaternion(const CMatrix3x3& m)
 	{
+		*this = ToQuat(m);
 	}
 
 	CQuaternion::CQuaternion(const CMatrix4x4& m)
 	{
+		*this = ToQuat(m);
 	}
 
 	CQuaternion::CQuaternion(const CQuaternion& q):
-		w(ToRadians(q.w)), x(q.x), y(q.y), z(q.z)
+		w(q.w), x(q.x), y(q.y), z(q.z)
 	{ }
 
 	CQuaternion& CQuaternion::Add(const CQuaternion& q)
