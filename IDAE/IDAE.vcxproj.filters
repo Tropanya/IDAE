@@ -70,5 +70,7 @@
     <None Include="res\test.vert">
       <Filter>Файлы ресурсов</Filter>
     </None>
+    <None Include="res\lamp.frag" />
+    <None Include="res\lamp.vert" />
   </ItemGroup>
 </Project>
